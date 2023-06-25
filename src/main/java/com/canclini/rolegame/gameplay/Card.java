@@ -1,6 +1,6 @@
 package com.canclini.rolegame.gameplay;
 
-public class Card {
+public abstract class Card implements CardCombatSystem{
 
     // INFORMATION
     private String name;
@@ -9,13 +9,27 @@ public class Card {
 
     // ATRIBUTES
     // byte uses only 8 bits (-128 hasta 128) - int uses 16 bits
-    private int age;
+    protected int age;
     private byte health;
     private byte speed;
     private byte dexterity;
     private byte strength;
     private byte level;
     private byte armor;
+
+    // ATTRIBUTES MIN AND MAX VALUES
+
+    public static final int ageMaxValue = 300;
+    public static final int healthMaxValue = 100;
+    public static final int speedMaxValue = 10;
+
+    public static final int dexterityMaxValue = 5;
+
+    public static final int strengthMaxValue = 10;
+
+    public static final int levelMaxValue = 10;
+
+    public static final int armorMaxValue = 10;
 
     // IMAGE
     private String imageSrc;
@@ -25,12 +39,12 @@ public class Card {
         this.nickname = nickname;
         this.birthdate = birthdate;
         this.setAge(age); // checks...
-        this.health = 100;
-        this.speed = speed;
-        this.dexterity = dexterity;
-        this.strength = strength;
-        this.level = level;
-        this.armor = armor;
+        this.setHealth(health);
+        this.setSpeed(speed);
+        this.setDexterity(dexterity);
+        this.setStrength(strength);
+        this.setLevel(level);
+        this.setArmor(armor);
         this.imageSrc = imageSrc;
     }
 
@@ -63,7 +77,7 @@ public class Card {
     }
 
     public void setAge(int age) {
-        if (age < 0 || age > 300) {
+        if (age < 0 || age > ageMaxValue) {
             throw new Error("Error Trying to Set the Age Atrribute");
         }
         this.age = age;
@@ -74,7 +88,7 @@ public class Card {
     }
 
     public void setHealth(byte health) {
-        if (health <= 0 || health > 100) {
+        if (health <= 0 || health > healthMaxValue) {
             throw new Error("Error Trying to Set the Health Atrribute");
         }
         this.health = health;
@@ -85,7 +99,7 @@ public class Card {
     }
 
     public void setSpeed(byte speed) {
-        if (speed <= 0 || speed > 10) {
+        if (speed <= 0 || speed > speedMaxValue) {
             throw new Error("Error Trying to Set the Speed Atrribute");
         }
         this.speed = speed;
@@ -96,7 +110,7 @@ public class Card {
     }
 
     public void setDexterity(byte dexterity) {
-        if (dexterity <= 0 || dexterity > 5) {
+        if (dexterity <= 0 || dexterity > dexterityMaxValue) {
             throw new Error("Error Trying to Set the Dexterity Atrribute");
         }
         this.dexterity = dexterity;
@@ -107,7 +121,7 @@ public class Card {
     }
 
     public void setStrength(byte strength) {
-        if (strength <= 0 || strength > 10) {
+        if (strength <= 0 || strength > strengthMaxValue) {
             throw new Error("Error Trying to Set the Strength Atrribute");
         }
         this.strength = strength;
@@ -118,7 +132,7 @@ public class Card {
     }
 
     public void setLevel(byte level) {
-        if (level <= 0 || level > 10) {
+        if (level <= 0 || level > levelMaxValue) {
             throw new Error("Error Trying to Set the Level Atrribute");
         }
         this.level = level;
@@ -129,7 +143,7 @@ public class Card {
     }
 
     public void setArmor(byte armor) {
-        if (armor <= 0 || armor > 10) {
+        if (armor <= 0 || armor > armorMaxValue) {
             throw new Error("Error Trying to Set the Armor Atrribute");
         }
         this.armor = armor;

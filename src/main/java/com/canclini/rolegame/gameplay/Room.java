@@ -1,14 +1,12 @@
 package com.canclini.rolegame.gameplay;
 
 public class Room {
-    private byte roomId;
     private String playerOne;
     private Player playerTwo;
     private String backgroundSrc;
-
-    public Room(String playerOne) {
-        this.playerOne = playerOne;
-    }
+    private int moves;
+    private final int maxMoves = 7;
+    private boolean turn = true; // true -> playerOne, false -> playerTwo
 
     public String getPlayerOne() {
         return playerOne;
