@@ -1,0 +1,17 @@
+body{
+  min-height: 100vh;
+}
+#bgImg{
+  position: absolute;
+  object-fit: cover;
+  height: 100vh;
+  filter: brightness(.8) blur(3px);
+  z-index: -1;
+}
+.buttons > button{
+  transition: .2s all ease-in-out;
+}
+.buttons > button:hover {
+  transition: .2s all ease-in-out;
+  transform: scale(1.04);
+}

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/rooms")
-public class roomController {
+public class RoomController {
     private static Map<Integer, Room> roomList = new HashMap<>();
     private static int roomCounter = 0;
     public Integer generateUniqueId() {
