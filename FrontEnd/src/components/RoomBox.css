@@ -1,0 +1,20 @@
+.room{
+  box-shadow: inset rgba(0, 0, 0, 0.4) 0px 0px 50px;
+  scale: 1;
+  transition: .2s scale ease-in-out;
+}
+.room:hover{
+  scale: 1.02;
+}
+.room > img{
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.room > span{
+  margin: .1em 5em;
+  font-size: 1.5em;
+}

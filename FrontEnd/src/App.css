@@ -1,15 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Belanosima:wght@600&display=swap');
 body{
   min-height: 100vh;
+  font-family: 'Belanosima', sans-serif;
 }
 #bgImg{
-  position: absolute;
+  position: fixed;
+  top: 0;
   object-fit: cover;
   height: 100vh;
-  filter: brightness(.8) blur(3px);
+  width: 100vw;
+  filter: brightness(.8) blur(6px) sepia(1) ;
   z-index: -1;
 }
 .buttons > button{
   transition: .2s all ease-in-out;
+  
 }
 .buttons > button:hover {
   transition: .2s all ease-in-out;
