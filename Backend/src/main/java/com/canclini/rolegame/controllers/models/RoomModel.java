@@ -7,10 +7,7 @@ import jakarta.validation.constraints.NotNull;
 public class RoomModel {
 
     @NotBlank(message = "No Player Host Name")
-    public String playerOne;
-
-    @NotBlank(message = "No Player Two Name")
-    public String playerTwo;
+    public String hostPlayer;
     @NotNull(message = "Id Cannot be Null")
     public int stageId;
 

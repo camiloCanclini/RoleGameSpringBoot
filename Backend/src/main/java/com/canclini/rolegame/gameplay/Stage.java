@@ -7,14 +7,16 @@ import lombok.Getter;
 public class Stage {
 
     private String stageName;
+    private String image;
     private int heat;
     private int wind;
     private int humidity;
     private int magicBoost;
 
 
-    public Stage(String stageName, int heat, int wind, int humidity, int magicBoost){
+    public Stage(String stageName, String image, int heat, int wind, int humidity, int magicBoost){
         this.stageName = stageName;
+        this.image = image;
         this.setHeat(heat);
         this.setWind(wind);
         this.setHumidity(humidity);

@@ -1,15 +1,17 @@
-import { Link } from 'react-router-dom';
+import { Link , redirect} from 'react-router-dom';
 import "./CreateRoom.css";
 import "../woodPattern.css";
 import bgImg from "../assets/backgroundImages/createRoomBg.jpg";
 import { useState } from 'react';
 import Swal from 'sweetalert2'
+import axios from 'axios';
 
 function CreateRoom() {
 
   const [imgSelected, setImgSelected] = useState(null);
   const [stageId, setStageId] = useState(null);
   const [hostNamePlayer, sethostNamePlayer] = useState(null);
+  //const history = useHistory();
 
   const selectImage = (event) => {
     const newImgSelected = event.target;
@@ -28,8 +30,26 @@ function CreateRoom() {
         title: 'Oops...',
         text: 'Complete the fields please!'
       })
+    }else{
+      axios.post(
+        "http://localhost:8080/rooms/",
+        JSON.stringify({
+          hostPlayer: hostNamePlayer,
+          stageId: stageId
+        })
+      )
+        .then(response => {
+          console.log(response);
+          redirect("/game/"+response.data.roomId)
+        })
+        .catch((err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'failed to create room'
+          })
+        })
+      //history.push("/game/"+)
     }
-
   }
 
   return (
