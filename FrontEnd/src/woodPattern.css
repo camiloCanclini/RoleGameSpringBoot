@@ -1,0 +1,5 @@
+.woodPattern{
+  background-image: url(./assets/pattern/wood.jpg); /* Ruta a tu imagen de textura de madera */
+  background-repeat: repeat;
+  text-shadow: 2px 2px 5px black;
+}

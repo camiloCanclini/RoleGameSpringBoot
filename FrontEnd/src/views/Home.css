@@ -12,11 +12,11 @@ body{
   filter: brightness(.8) blur(6px) sepia(1) ;
   z-index: -1;
 }
-.buttons > button{
+.buttons button{
   transition: .2s all ease-in-out;
   
 }
-.buttons > button:hover {
+.buttons button:hover {
   transition: .2s all ease-in-out;
   transform: scale(1.04);
 }

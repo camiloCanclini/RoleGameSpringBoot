@@ -1,0 +1,13 @@
+
+.inputs{
+  width: 70%;
+}
+
+.inputs label {
+  min-width: 6em;
+}
+
+.selected{
+  transition: .1s all;
+  border: solid white 3px;
+}
