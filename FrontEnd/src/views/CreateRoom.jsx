@@ -70,7 +70,7 @@ function CreateRoom() {
           <div className='flex flex-wrap justify-center gap-2 w-full items-center'>
             <img id="1" src="https://c4.wallpaperflare.com/wallpaper/376/461/209/digital-art-knight-soldier-flag-wallpaper-preview.jpg" className="object-cover  h-32 w-36 rounded-lg cursor-pointer" alt="" onClick={selectImage}/>
             <img id="2" src="https://wallpaperset.com/w/full/5/6/7/18604.jpg" className="object-cover  h-32 w-36 rounded-lg cursor-pointer" alt="" onClick={selectImage}/>
-            <img id="3" src="https://w0.peakpx.com/wallpaper/399/17/HD-wallpaper-enchanting-forest-forest-tree-fantasy-luminos-green.jpg" className="object-cover  h-32 w-36 rounded-lg cursor-pointer" alt="" onClick={selectImage} />
+            <img id="3" src="https://images.unsplash.com/photo-1548445929-4f60a497f851?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWVkaWV2YWx8ZW58MHx8MHx8fDA%3D&w=1000&q=80" className="object-cover  h-32 w-36 rounded-lg cursor-pointer" alt="" onClick={selectImage} />
           </div>
         </div>
       </div>
