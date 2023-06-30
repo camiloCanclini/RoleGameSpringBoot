@@ -32,7 +32,7 @@ function CreateRoom() {
       })
     }else{
       axios.post(
-        "http://localhost:8080/rooms/",
+        "http://localhost:8080/rooms",
         JSON.stringify({
           hostPlayer: hostNamePlayer,
           stageId: stageId
@@ -43,6 +43,7 @@ function CreateRoom() {
           redirect("/game/"+response.data.roomId)
         })
         .catch((err) => {
+          console.log(err)
           Swal.fire({
             icon: 'error',
             title: 'failed to create room'
