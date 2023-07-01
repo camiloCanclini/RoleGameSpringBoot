@@ -6,8 +6,8 @@ import Swal from "sweetalert2";
 import Hud from './components/Hud.jsx'
 import Looger from './components/Logger.jsx'
 import { RotatingLines } from "react-loader-spinner";
-/* import {over} from 'stompjs';
-import SockJS from 'sockjs-client'; */
+import {over} from 'stompjs';
+import sockjs from "sockjs-client/dist/sockjs"
 
 const apiUrl = 'http://localhost:8080'
 
@@ -28,6 +28,20 @@ function Game() {
   const [gameStarted, setGameStarted] = useState(false);
   const url = window.location.href;
   const roomId = url.split("/").pop();
+
+
+  let stompClient = null
+  let Sock = new sockjs('http://localhost:8080/ws');
+  stompClient = over(Sock);
+
+  const onMessageReceived = (message) => console.log(message);
+  
+
+  const onConnected = () => {
+    stompClient.subscribe('/room/'+roomId, onMessageReceived);
+  }
+
+
   const getRoomData = () => {
     console.log(roomId);
     axios.get(apiUrl + '/rooms/' + roomId)
@@ -38,29 +52,23 @@ function Game() {
         }
         console.log(response.data);
         setRoom(response.data);
-        
+        stompClient.connect({},onConnected, onError);
       })
       .catch(() => {Swal.fire(errorAlert)})
   }
 
   
-  /* let stompClient = null
-  const socket = new SockJS('/room')
-  stompClient = over(socket)
-  let Sock = new SockJS('http://localhost:8080/ws');
-  stompClient = over(Sock);
-  stompClient.connect({},onConnected, onError);
+  
 
-  const onConnected = () => {
-    stompClient.subscribe('/room/'+roomId, onMessageReceived);
-  }
 
-  const onError = () => {
+  const onError = () => {Swal.fire(errorAlert)}
 
-  } */
+  
+
 
   useEffect(() => {
     getRoomData();
+    
     setTimeout(() => {
       setGameStarted(true);
     }, 15000);
