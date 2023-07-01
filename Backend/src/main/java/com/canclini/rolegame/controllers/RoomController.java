@@ -38,7 +38,6 @@ public class RoomController {
     public Map<Integer, Room> getRooms() {
         return roomList;
     }
-    @CrossOrigin(origins = "*", allowedHeaders = "*") // Allows the client consume this API
     @PostMapping
     public ResponseEntity<Integer> createRoom(@RequestBody @Valid RoomModel request) {
         if (!stageList.containsKey(request.stageId)) {

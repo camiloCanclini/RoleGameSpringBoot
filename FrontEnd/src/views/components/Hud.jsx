@@ -6,14 +6,12 @@ import Card from './Card.jsx'
 function Hud ({position}){
   const Base = ({pos})=>{
     return (
-      <div className='woodPattern object-cover h-20 p-4 overflow-visible'>
-        <div className='relative flex'>
-          <div className={position == 'bottom'? 'absolute bottom-0 w-full flex justify-center' : 'absolute top-0 w-full flex justify-center'}>
+      <div className='woodPattern object-cover h-36 overflow-visible'>
+          <div className={(position == 'bottom'? 'absolute bottom-0 mb-16 pr-8 justify-end' : 'absolute top-0 mt-16 pl-8 justify-start')+' w-full flex  gap-8'}>
             <Card></Card>
             <Card></Card>
             <Card></Card>
           </div>
-        </div>
       </div>
     );
   }

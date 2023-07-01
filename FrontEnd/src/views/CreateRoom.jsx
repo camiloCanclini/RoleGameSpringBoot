@@ -1,17 +1,20 @@
-import { Link , redirect} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "./CreateRoom.css";
+import "./alertWood.css"
 import "../woodPattern.css";
 import bgImg from "../assets/backgroundImages/createRoomBg.jpg";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2'
 import axios from 'axios';
+import Stage from './components/Stage.jsx'
 
 function CreateRoom() {
 
   const [imgSelected, setImgSelected] = useState(null);
-  const [stageId, setStageId] = useState(null);
+  const [stageSelected, setStageSelected] = useState(null);
   const [hostNamePlayer, sethostNamePlayer] = useState(null);
-  //const history = useHistory();
+  const [stages, setStages] = useState(null)
+  const navigate = useNavigate();
 
   const selectImage = (event) => {
     const newImgSelected = event.target;
@@ -19,34 +22,53 @@ function CreateRoom() {
       imgSelected.classList.remove("selected")
       newImgSelected.classList.add("selected")
     }
-    setStageId(newImgSelected.id)
+    setStageSelected(newImgSelected.id)
     setImgSelected(newImgSelected);
   }
 
+  const getStages = () => {
+    axios.get("http://localhost:8080/stages")
+      .then(response => {
+        console.log(response.data);
+        setStages(response.data)
+      })
+      .catch(() => setStages(null))
+  }
+
+  useEffect(getStages,[])
+
   const roomCreateRequest = () => {
-    if (!hostNamePlayer || !stageId) {
+    if (!hostNamePlayer || stageSelected == null) {
       Swal.fire({
         icon: 'warning',
         title: 'Oops...',
-        text: 'Complete the fields please!'
+        text: 'Complete the fields please!',
+        customClass: {
+          popup: "alert",
+        },
       })
     }else{
+      const requestBody = {
+        hostPlayer: hostNamePlayer,
+        stageId: parseInt(stageSelected)
+      }
+      console.log(requestBody);
       axios.post(
         "http://localhost:8080/rooms",
-        JSON.stringify({
-          hostPlayer: hostNamePlayer,
-          stageId: stageId
-        })
+        requestBody
       )
         .then(response => {
           console.log(response);
-          redirect("/game/"+response.data.roomId)
+          setTimeout(()=>navigate("/game/"+response.data),2000)
         })
         .catch((err) => {
           console.log(err)
           Swal.fire({
             icon: 'error',
-            title: 'failed to create room'
+            title: 'Failed To Create Room !',
+            customClass: {
+              popup: "alert",
+            },
           })
         })
       //history.push("/game/"+)
@@ -69,9 +91,11 @@ function CreateRoom() {
         <div className=' woodPattern border-solid border-4 p-6 rounded-lg flex gap-x-3 items-center flex-wrap'>
           <label htmlFor="" className='basis-0 grow min-w-fit my-2'>Stage</label>
           <div className='flex flex-wrap justify-center gap-2 w-full items-center'>
-            <img id="1" src="https://c4.wallpaperflare.com/wallpaper/376/461/209/digital-art-knight-soldier-flag-wallpaper-preview.jpg" className="object-cover  h-32 w-36 rounded-lg cursor-pointer" alt="" onClick={selectImage}/>
-            <img id="2" src="https://wallpaperset.com/w/full/5/6/7/18604.jpg" className="object-cover  h-32 w-36 rounded-lg cursor-pointer" alt="" onClick={selectImage}/>
-            <img id="3" src="https://images.unsplash.com/photo-1548445929-4f60a497f851?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWVkaWV2YWx8ZW58MHx8MHx8fDA%3D&w=1000&q=80" className="object-cover  h-32 w-36 rounded-lg cursor-pointer" alt="" onClick={selectImage} />
+            {stages != null ? 
+            Object.keys(stages).map((key, index) => <Stage key={index} stageId={key} stage={stages[key]} selectImage={selectImage}/>)
+            :
+            <p>NO STAGES!</p>
+          }
           </div>
         </div>
       </div>

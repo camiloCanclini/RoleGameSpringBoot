@@ -4,11 +4,22 @@ import '../../woodPattern.css'
 function Card (){
 
   return (
-    <div className='flex flex-col w-32 z-10 mx-8 mt-6 h-56 overflow-hidden'>
-      <img src="https://pngimg.com/d/medival_knight_PNG15928.png" alt="" className='z-30'/>
-      <img src="https://e1.pxfuel.com/desktop-wallpaper/327/350/desktop-wallpaper-medieval-times-medieval-background.jpg" alt="" className='absolute z-20 top-0 bottom-0 w-full h-full'/>
-      <div className='woodPattern'>
-        <p>Carta</p>
+    <div className='flex flex-col overflow-hidden w-40 z-10 h-72 rounded-lg border-2 relative'>
+      <img src="https://e1.pxfuel.com/desktop-wallpaper/327/350/desktop-wallpaper-medieval-times-medieval-background.jpg" alt="" className='absolute object-cover z-20 w-full h-full'/>
+      <img src="https://pngimg.com/d/medival_knight_PNG15928.png" alt="" className='z-30 object-contain w-full h-4/6'/>
+      <div className='woodPattern z-40 grow flex p-2 flex-col'>
+        <div>
+          <span className='text-sm'>Human</span>
+          <span className='text-lg'>Human</span>
+        </div>
+        <div className='w-full'>
+          <ul className='flex justify-center items-center gap-2 w-full text-base'>
+            <li><i className="fa-solid fa-hand-fist"></i> 4</li>
+            <li><i className="fa-solid fa-shield-halved"></i> 4</li>
+            <li><i className="fa-solid fa-bolt"></i> 4</li>
+            <li><i className="fa-solid fa-person-running"></i> 4</li>
+          </ul>
+        </div>
       </div>
     </div>
   );
