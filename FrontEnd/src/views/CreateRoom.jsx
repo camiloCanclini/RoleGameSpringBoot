@@ -59,7 +59,7 @@ function CreateRoom() {
       )
         .then(response => {
           console.log(response);
-          setTimeout(()=>navigate("/game/"+response.data),2000)
+          setTimeout(()=>navigate("/game/"+response.data, {state:{hostNamePlayer: hostNamePlayer}}),1000)
         })
         .catch((err) => {
           console.log(err)
@@ -71,7 +71,6 @@ function CreateRoom() {
             },
           })
         })
-      //history.push("/game/"+)
     }
   }
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 //import testData from "../testData";
 import "./Home.css";
+import "./alertWood.css";
 import bgImg from "../assets/backgroundImages/menuBackground.jpg";
 import "../woodPattern.css";
 import RoomBox from "./components/RoomBox";
@@ -21,7 +22,7 @@ function App() {
       .catch(() => setRooms(null))
   };
 
-  useEffect(() => getRooms, []);
+  useEffect(() => getRooms(), []);
 
   return (
     

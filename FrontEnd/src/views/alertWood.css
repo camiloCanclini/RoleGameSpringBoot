@@ -17,3 +17,10 @@
   border: 3px solid;
   border-radius: 10px;
 }
+
+.alert input{
+  background-color: aliceblue;
+  color: black;
+  font-size: 1.6em;
+  padding: .2em;
+}

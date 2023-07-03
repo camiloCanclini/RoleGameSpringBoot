@@ -5,6 +5,7 @@ import com.canclini.rolegame.gameplay.Player;
 import com.canclini.rolegame.gameplay.Room;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import com.canclini.rolegame.gameplay.Stage;
@@ -46,6 +47,7 @@ public class RoomController {
         Room room = new Room(new Player(request.hostPlayer), stageList.get(request.stageId),true);
         int roomId = generateUniqueId();
         roomList.put(roomId, room);
+        WebSocketController.roomSubscriptions.put(roomId, new HashSet<>());
         return ResponseEntity.ok(roomId);
     }
 
