@@ -10,6 +10,7 @@ public class ResponseWsModel {
         ERROR,
         READY,
         MESSAGE,
+        ROLE,
         OTHER
     }
     private Type type;

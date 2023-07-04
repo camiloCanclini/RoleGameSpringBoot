@@ -50,6 +50,10 @@ function Game() {
       console.log(response);
       if (response.type == "READY") {
         setGameStarted(true)
+        getRoomData();
+      }
+      if (response.type == "ROLE") {
+        // is the Client the host, or the guest
       }
       if (response.type == "MESSAGE") {
         setMessagesWs(currentValue => [...currentValue, response.message]);
@@ -82,9 +86,9 @@ function Game() {
         }
         if (response.status == 200) {
           setRoom(response.data);
-          WebSocket(stompClient);
+          //WebSocket(stompClient);
         }
-        //console.log(response.data);
+        console.log(response.data);
         
       })
       .catch(() => {Swal.fire(errorAlert)})
@@ -97,8 +101,8 @@ function Game() {
 
 
   useEffect(() => {
-    getRoomData();
-    
+    //getRoomData();
+    WebSocket(stompClient);
     /* setTimeout(() => {
       setGameStarted(true);
     }, 5000); */

@@ -1,7 +1,9 @@
 package com.canclini.rolegame.gameplay.cards;
 
 import com.canclini.rolegame.gameplay.Card;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class HumanCard extends Card{
 
     public static final int humanAgeMaxValue = 120;

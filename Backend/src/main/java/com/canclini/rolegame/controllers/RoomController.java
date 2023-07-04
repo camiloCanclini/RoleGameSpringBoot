@@ -1,15 +1,18 @@
 package com.canclini.rolegame.controllers;
 
 import com.canclini.rolegame.controllers.models.RoomModel;
+import com.canclini.rolegame.gameplay.Card;
 import com.canclini.rolegame.gameplay.Player;
 import com.canclini.rolegame.gameplay.Room;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
 import com.canclini.rolegame.gameplay.Stage;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:5173", maxAge = 3600)
 @RestController
 @RequestMapping("/rooms")
+@Slf4j
 public class RoomController {
 
     public static Map<Integer, Room> roomList = new HashMap<>();
@@ -45,6 +49,7 @@ public class RoomController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(-1);
         }
         Room room = new Room(new Player(request.hostPlayer), stageList.get(request.stageId),true);
+        room.getHostPlayer().setCards(Room.generateRandomCards(3));
         int roomId = generateUniqueId();
         roomList.put(roomId, room);
         WebSocketController.roomSubscriptions.put(roomId, new HashSet<>());

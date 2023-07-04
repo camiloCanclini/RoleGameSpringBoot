@@ -3,6 +3,7 @@ package com.canclini.rolegame.controllers;
 import com.canclini.rolegame.controllers.models.ActionPlayerWsModel;
 import com.canclini.rolegame.controllers.models.InfoUserWsModel;
 import com.canclini.rolegame.controllers.models.ResponseWsModel;
+import com.canclini.rolegame.gameplay.Room;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,10 +45,11 @@ public class WebSocketController {
         this.objectMapper = objectMapper;
     }
 
-    private void sendResponse (Integer roomId, String message, ResponseWsModel.Type type) {
+    private void sendResponse (Integer roomId, String message, ResponseWsModel.Type type, String data) {
         ResponseWsModel response = new ResponseWsModel();
         response.setType(type);
         response.setMessage(message);
+        response.setData(data);
         try {
             String jsonResponse = objectMapper.writeValueAsString(response);
             messagingTemplate.convertAndSend("/room/" + roomId, jsonResponse);
@@ -61,16 +63,16 @@ public class WebSocketController {
         log.info("Alguien se suscribio");
         log.info(message.getSuscriberName());
         if (!roomSubscriptions.containsKey(roomId)) {
-            sendResponse(roomId, "Error: Room Doesn't Exists", ResponseWsModel.Type.ERROR);
+            sendResponse(roomId, "Error: Room Doesn't Exists", ResponseWsModel.Type.ERROR, "");
             return;
         }
         if (RoomController.roomList.get(roomId) == null) { // La room no existe
-            sendResponse(roomId, "Error: Room Doesn't Exists", ResponseWsModel.Type.ERROR);
+            sendResponse(roomId, "Error: Room Doesn't Exists", ResponseWsModel.Type.ERROR, "");
             return;
         }
         if (roomSubscriptions.get(roomId).size() >= 2) {
             // Ya hay dos suscriptores en el canal, enviar mensaje de sala llena
-            sendResponse(roomId, "Error: There already are 2 suscribers in the channel", ResponseWsModel.Type.ERROR);
+            sendResponse(roomId, "Error: There already are 2 suscribers in the channel", ResponseWsModel.Type.ERROR, "");
             return;
         }
 
@@ -79,24 +81,25 @@ public class WebSocketController {
 
         if (roomSubscriptions.get(roomId).size() == 0) {
             roomSubscriptions.get(roomId).add(new SuscriberPlayer(Roles.HOST, message.getSuscriberName()));
-            sendResponse(roomId, "Player Suscribe!: ", ResponseWsModel.Type.OTHER);
+            sendResponse(roomId, "Player Suscribe!: ", ResponseWsModel.Type.ROLE, "HOST");
         } else{
             roomSubscriptions.get(roomId).add(new SuscriberPlayer(Roles.GUEST, message.getSuscriberName()));
+            RoomController.roomList.get(roomId).getGuestPlayer().setCards(Room.generateRandomCards(3));
             RoomController.roomList.get(roomId).setFullRoom(true);
 
-            sendResponse(roomId, "Player Suscribed!", ResponseWsModel.Type.OTHER);
-            sendResponse(roomId, "The Room Is Ready!", ResponseWsModel.Type.READY);
+            sendResponse(roomId, "Player Suscribed!", ResponseWsModel.Type.ROLE,"GUEST");
+            sendResponse(roomId, "The Room Is Ready!", ResponseWsModel.Type.READY, "");
         }
         String suscribersToString = "";
         for (SuscriberPlayer elem: roomSubscriptions.get(roomId)) {
             suscribersToString += " " + elem.getName();
         }
-        sendResponse(roomId, "Suscribeds Players!: "+suscribersToString, ResponseWsModel.Type.OTHER);
+        sendResponse(roomId, "Suscribeds Players!: "+suscribersToString, ResponseWsModel.Type.OTHER, "");
     }
 
     @MessageMapping("/room/{roomId}/interact")
     public void interactWithRoom (@DestinationVariable Integer roomId, @Payload ActionPlayerWsModel message){
-        sendResponse(roomId, message.getPlayer()+": "+ message.getMessage(), ResponseWsModel.Type.MESSAGE);
+        sendResponse(roomId, message.getPlayer()+": "+ message.getMessage(), ResponseWsModel.Type.MESSAGE, "");
         log.info("Alguien interactuo");
         //return message;
     }

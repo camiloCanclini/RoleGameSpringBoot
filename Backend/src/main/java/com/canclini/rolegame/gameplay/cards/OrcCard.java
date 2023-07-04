@@ -1,7 +1,9 @@
 package com.canclini.rolegame.gameplay.cards;
 
 import com.canclini.rolegame.gameplay.Card;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class OrcCard extends Card {
 
     public OrcCard(String name, String nickname, String birthdate, byte age, byte health, byte speed, byte dexterity, byte strength, byte level, byte armor, String imageSrc) {

@@ -1,5 +1,8 @@
 package com.canclini.rolegame.gameplay;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public abstract class Card implements CardCombatSystem{
 
     // INFORMATION
@@ -9,27 +12,27 @@ public abstract class Card implements CardCombatSystem{
 
     // ATRIBUTES
     // byte uses only 8 bits (-128 hasta 128) - int uses 16 bits
-    protected int age;
-    private byte health;
-    private byte speed;
-    private byte dexterity;
-    private byte strength;
-    private byte level;
-    private byte armor;
+    protected Integer age;
+    private Byte health;
+    private Byte speed;
+    private Byte dexterity;
+    private Byte strength;
+    private Byte level;
+    private Byte armor;
 
     // ATTRIBUTES MIN AND MAX VALUES
 
-    public static final int ageMaxValue = 300;
-    public static final int healthMaxValue = 100;
-    public static final int speedMaxValue = 10;
+    public static final Integer ageMaxValue = 300;
+    public static final Byte healthMaxValue = 100;
+    public static final Byte speedMaxValue = 10;
 
-    public static final int dexterityMaxValue = 5;
+    public static final Byte dexterityMaxValue = 5;
 
-    public static final int strengthMaxValue = 10;
+    public static final Byte strengthMaxValue = 10;
 
-    public static final int levelMaxValue = 10;
+    public static final Byte levelMaxValue = 10;
 
-    public static final int armorMaxValue = 10;
+    public static final Byte armorMaxValue = 10;
 
     // IMAGE
     private String imageSrc;
@@ -83,7 +86,7 @@ public abstract class Card implements CardCombatSystem{
         this.age = age;
     }
 
-    public byte getHealth() {
+    public Byte getHealth() {
         return health;
     }
 
@@ -94,7 +97,7 @@ public abstract class Card implements CardCombatSystem{
         this.health = health;
     }
 
-    public byte getSpeed() {
+    public Byte getSpeed() {
         return speed;
     }
 
@@ -105,7 +108,7 @@ public abstract class Card implements CardCombatSystem{
         this.speed = speed;
     }
 
-    public byte getDexterity() {
+    public Byte getDexterity() {
         return dexterity;
     }
 
@@ -116,7 +119,7 @@ public abstract class Card implements CardCombatSystem{
         this.dexterity = dexterity;
     }
 
-    public byte getStrength() {
+    public Byte getStrength() {
         return strength;
     }
 
@@ -127,7 +130,7 @@ public abstract class Card implements CardCombatSystem{
         this.strength = strength;
     }
 
-    public byte getLevel() {
+    public Byte getLevel() {
         return level;
     }
 
@@ -138,7 +141,7 @@ public abstract class Card implements CardCombatSystem{
         this.level = level;
     }
 
-    public byte getArmor() {
+    public Byte getArmor() {
         return armor;
     }
 
@@ -155,5 +158,22 @@ public abstract class Card implements CardCombatSystem{
 
     public void setImageSrc(String imageSrc) {
         this.imageSrc = imageSrc;
+    }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "name='" + name + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", birthdate='" + birthdate + '\'' +
+                ", age=" + age +
+                ", health=" + health +
+                ", speed=" + speed +
+                ", dexterity=" + dexterity +
+                ", strength=" + strength +
+                ", level=" + level +
+                ", armor=" + armor +
+                ", imageSrc='" + imageSrc + '\'' +
+                '}';
     }
 }
