@@ -49,7 +49,6 @@ function CreateRoom() {
       })
     }else{
       const requestBody = {
-        hostPlayer: hostNamePlayer,
         stageId: parseInt(stageSelected)
       }
       console.log(requestBody);
@@ -59,7 +58,7 @@ function CreateRoom() {
       )
         .then(response => {
           console.log(response);
-          setTimeout(()=>navigate("/game/"+response.data, {state:{hostNamePlayer: hostNamePlayer}}),1000)
+          setTimeout(()=>navigate("/game/"+response.data, {state:{playerName: hostNamePlayer}}),1000)
         })
         .catch((err) => {
           console.log(err)

@@ -5,6 +5,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public abstract class Card implements CardCombatSystem{
 
+    private enum TypeCard {
+        HUMAN,
+        ORC,
+        ELF
+    }
+    // SE USA EN LA APLICACION CLIENTE
+    private TypeCard typeCard; // 1-> Human, 2-> Orc, 3-> Elf
+
     // INFORMATION
     private String name;
     private String nickname;
@@ -49,6 +57,18 @@ public abstract class Card implements CardCombatSystem{
         this.setLevel(level);
         this.setArmor(armor);
         this.imageSrc = imageSrc;
+    }
+
+    public TypeCard getTypeCard() {
+        return typeCard;
+    }
+
+    public void setTypeCard(int typeCardNumber) {
+        switch (typeCardNumber) {
+            case 0 -> this.typeCard = TypeCard.HUMAN;
+            case 1 -> this.typeCard = TypeCard.ORC;
+            case 2 -> this.typeCard = TypeCard.ELF;
+        }
     }
 
     public String getName() {

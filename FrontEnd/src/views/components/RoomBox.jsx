@@ -32,7 +32,7 @@ function RoomBox({background, playerHost, roomId}){
             },
           })
         }else{
-          return setTimeout(()=> navigate("/game/"+roomId, {state:{hostNamePlayer: login}}),1000)
+          return setTimeout(()=> navigate("/game/"+roomId, {state:{playerName: login}}),1000)
         }
       },
       allowOutsideClick: () => !Swal.isLoading()

@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Room {
     private Player hostPlayer;
-    private Player guestPlayer = new Player();
+    private Player guestPlayer;
     private Stage stage;
     private int movementsCounter = 0;
     private final int maxMoves = 7;
@@ -38,10 +38,16 @@ public class Room {
                 '}';
     }
 
-    public Room(Player hostPlayer, Stage stage, boolean turn) {
-        this.hostPlayer = hostPlayer;
+    public Room(Stage stage, boolean turn) {
         this.stage = stage;
         this.turn = turn;
+    }
+
+    public void setFullRoom(boolean state){
+        this.fullRoom = state;
+
+        this.hostPlayer.setCards(generateRandomCards(3));
+        this.guestPlayer.setCards(generateRandomCards(3));
     }
 
     public static ArrayList<Card> generateRandomCards(int cardQuantity){
@@ -56,12 +62,16 @@ public class Room {
         Random rand = new Random();
         ArrayList<Card> generatedCards = new ArrayList<>();
         for (int i = 0; i < cardQuantity; i++) {
-            Card card = cardConstructors[rand.nextInt(cardConstructors.length)];
-
+            int cardRaceNumber = rand.nextInt(cardConstructors.length);
+            Card card = cardConstructors[cardRaceNumber];
             Field[] cardClassProperties = Card.class.getDeclaredFields();
             for (Field property : cardClassProperties) {
                 while (true){
                     try {
+
+                        if (property.getName() == "typeCard"){
+                            card.setTypeCard(cardRaceNumber); // Se usa en la aplicacion cliente
+                        }
                         if (property.getName() == "name"){
                             card.setName(medievalNames[rand.nextInt(medievalNames.length)]);
                         }

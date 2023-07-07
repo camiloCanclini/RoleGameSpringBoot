@@ -13,10 +13,11 @@ import './volumeController.css'
 function App() {
 
   const [rooms, setRooms] = useState(null);
-
+  const [roomCount, setRoomCount] = useState(0)
   const getRooms = () => {
     axios.get('http://localhost:8080/rooms')
       .then(response => {
+        console.log(response.data);
         Object.entries(response.data).length !== 0 ? setRooms(response.data) : null // empty obj
       })
       .catch(() => setRooms(null))
@@ -45,7 +46,8 @@ function App() {
       <div className="roomsContainer w-full flex flex-col items-center p-4">
         {rooms != null ? (
           Object.keys(rooms).map((key, index) => {
-            if (rooms[key].fullRoom == false) {
+            if ((rooms[key].fullRoom == false) && (rooms[key].hostPlayer != null)) {
+              
               return (
               <RoomBox
                 key={index}
