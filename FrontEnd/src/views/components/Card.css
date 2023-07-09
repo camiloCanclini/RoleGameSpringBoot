@@ -1,0 +1,45 @@
+.card{
+  transition: .2s all ease-in-out;
+}
+.selectingMyCard, .selectingTargetCard{
+  cursor: pointer;
+}
+
+.selectingMyCard:hover, .selectingTargetCard:hover{
+  filter: brightness(1.5);
+  scale: 1.05;
+}
+
+.myCard{
+  box-shadow: 0px 0px 20px 0px white;
+}
+
+.hit{
+  box-shadow: 0px 0px 20px 0px rgb(247, 20, 20);
+}
+
+.defend{
+  box-shadow: 0px 0px 20px 0px rgb(120, 219, 39) !important;
+}
+
+.spell{
+  box-shadow: 0px 0px 20px 0px rgb(20, 183, 247);
+}
+
+.cardSelected, .targetCardSelected{
+  box-shadow: 0px 0px 20px 0px white;
+  filter: brightness(1.5);
+  scale: 1.05;
+}
+
+.hitSelected{
+  box-shadow: 0px 0px 20px 0px rgb(247, 20, 20);
+}
+
+.defendSelected{
+  box-shadow: 0px 0px 20px 0px rgb(120, 219, 39);
+}
+
+.spellSelected{
+  box-shadow: 0px 0px 20px 0px rgb(20, 183, 247);
+}
