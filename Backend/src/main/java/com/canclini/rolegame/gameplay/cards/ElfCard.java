@@ -11,12 +11,16 @@ public class ElfCard extends Card {
     }
 
     @Override
-    public int attack(Card targetCard) {
+    public int hit(Card targetCard) {
         return 0;
     }
 
     @Override
-    public int defend(Card enemyCard) {
+    public int castSpell(Card targetCard) {
+        return 0;
+    }
+    @Override
+    public int defend(Card targetCard) {
         return 0;
     }
 

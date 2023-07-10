@@ -49,7 +49,6 @@ function Game() {
   const [myCard, setMyCard] = useState(null);
   const url = window.location.href;
   const roomId = url.split("/").pop();
-  const [contextValues, setContextValues] = useState(null)
   const [showDoneBtn, setShowDoneBtn] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
 
@@ -108,7 +107,9 @@ function Game() {
       },2000);
     }
     if (response.type == "MOVE") {
-      setMessagesWs(currentValue => [...currentValue, response.message]);
+      console.log(messagesWs);
+      setShowLoading(false)
+      setMessagesWs(messagesWs => [...messagesWs, response.message]);
     }
     if (response.type == "ERROR") {
       errorAlertFire()
@@ -117,10 +118,6 @@ function Game() {
   }
 
   const onError = () => {ErrorAlertFire()}
-
-  const sendMessage = (message) => {
-    stompClient.send(`/app/room/${roomId}/interact`, {}, JSON.stringify({message: "Hola Servidor!"}));
-  }
 
   /*
   
@@ -196,7 +193,7 @@ function Game() {
 
   const sendMove = () => {
     setShowDoneBtn(false)
-    const move = {"idPlayer": id,"targetCard":targetCard,"cardUsed":myCard}
+    const move = {"roomId": roomId, "idPlayer": id,"targetCard":targetCard,"cardUsed":myCard, "moveType": moveType}
     setShowLoading(true)
     stompClient.send(`/app/room/${roomId}/interact`, {}, JSON.stringify(move));
   }
@@ -257,7 +254,7 @@ function Game() {
               <Hud position='top' cleanMove={cleanMove}></Hud>
               <div className="absolute z-20 top-5 right-5 flex items-start gap-6">
                 <StageInfo></StageInfo>
-                <Logger sendMessage={sendMessage} messagesWs={messagesWs} />
+                <Logger messagesWs={messagesWs} />
               </div>
               <Hud position='bottom' cleanMove={cleanMove}></Hud>
             </div>

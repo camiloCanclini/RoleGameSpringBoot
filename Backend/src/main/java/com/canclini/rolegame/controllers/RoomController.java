@@ -92,10 +92,6 @@ public class RoomController {
     }
     @PutMapping("/{roomId}/join")
     public ResponseEntity<PlayerId> subscribeToRoomUpdates(@PathVariable Integer roomId, @RequestBody @Valid PlayerName playerName) {
-        /*log.info("roomid: "+String.valueOf(roomId));
-        log.info("RoomList: "+roomList.toString());
-        log.info("Body: "+ playerName.toString());
-        log.info("Body2: "+ playerName.getName());*/
 
         if (!roomList.containsKey(roomId)) {
             return ResponseEntity.notFound().build();

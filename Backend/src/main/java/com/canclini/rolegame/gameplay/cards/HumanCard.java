@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 public class HumanCard extends Card{
 
     public static final int humanAgeMaxValue = 120;
-    public HumanCard(String name, String nickname, String birthdate, byte age, byte health, byte speed, byte dexterity, byte strength, byte level, byte armor, String imageSrc) {
-        super(name, nickname, birthdate, age, health, speed, dexterity, strength, level, armor, imageSrc);
+
+    public HumanCard(String name, String nickname, String birthdate, byte age, byte health, byte speed, byte dexterity, byte strength, byte magic, byte armor, String imageSrc) {
+        super(name, nickname, birthdate, age, health, speed, dexterity, strength, magic, armor, imageSrc);
     }
 
     @Override
@@ -21,12 +22,16 @@ public class HumanCard extends Card{
     }
 
     @Override
-    public int attack(Card targetCard) {
+    public int hit(Card targetCard) {
         return 0;
     }
 
     @Override
-    public int defend(Card enemyCard) {
+    public int castSpell(Card targetCard) {
+        return 0;
+    }
+    @Override
+    public int defend(Card targetCard) {
         return 0;
     }
 

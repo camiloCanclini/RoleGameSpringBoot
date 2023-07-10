@@ -1,5 +1,6 @@
 package com.canclini.rolegame.gameplay;
 
+import com.canclini.rolegame.controllers.WebSocketController;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -12,10 +13,10 @@ import java.util.ArrayList;
 public class Player {
     private String namePlayer;
     private ArrayList<Card> cards = new ArrayList<>();
+    private WebSocketController.PlayerMovement movement = null;
 
     public Player(String namePlayer) {
         this.namePlayer = namePlayer;
     }
-
 
 }

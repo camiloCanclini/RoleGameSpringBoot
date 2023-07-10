@@ -93,6 +93,8 @@ public class Room {
                             card.setDexterity((byte) rand.nextInt(Card.dexterityMaxValue));
                         if (property.getName() == "strength")
                             card.setStrength((byte) rand.nextInt(Card.strengthMaxValue));
+                        if (property.getName() == "magic")
+                            card.setMagic((byte) rand.nextInt(Card.magicMaxValue));
                         if (property.getName() == "level")
                             card.setLevel((byte) rand.nextInt(Card.levelMaxValue));
                         if (property.getName() == "armor")
@@ -104,6 +106,7 @@ public class Room {
                     break;
                 }
             }
+            card.setCombatStats();
             generatedCards.add(card); // Se agrega una carta a lista
         }
         return generatedCards;

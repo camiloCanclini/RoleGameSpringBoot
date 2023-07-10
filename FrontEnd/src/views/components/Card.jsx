@@ -85,6 +85,7 @@ function Card ({card, cardId}){
   return (
     <div card-id={cardId} className={'card flex flex-col w-40 z-10 h-72 overflow-hidden rounded-3xl border-4 border-4 relative '+ (choosingMove ? 'z-50' : null)} onClick={(e)=>{ selectCard(e)}} onMouseOver={(e)=> {cardHover(e)}} onMouseLeave={(e)=> {cardUnHover(e)}}>
       <div className='absolute top-0 right-0 bg-red-700 rounded-full w-12 h-12 z-40 flex items-center justify-center border-2 text-xl overflow-hidden'>{card.health}</div>
+      <div className='absolute top-0 left-0 bg-cyan-700 rounded-full w-12 h-12 z-40 flex items-center justify-center border-2 text-3xl overflow-hidden'>{card.level}</div>
       <img src="https://e1.pxfuel.com/desktop-wallpaper/327/350/desktop-wallpaper-medieval-times-medieval-background.jpg" alt="" className='absolute object-cover z-20 w-full h-full'/>
       <img src="https://pngimg.com/d/medival_knight_PNG15928.png" alt="" className='z-30 object-contain w-full h-4/6'/>
       <div className='woodPattern z-40 grow flex p-2 flex-col'>

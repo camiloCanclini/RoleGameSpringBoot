@@ -2,6 +2,8 @@ package com.canclini.rolegame.gameplay;
 
 import lombok.NoArgsConstructor;
 
+import java.util.Random;
+
 @NoArgsConstructor
 public abstract class Card implements CardCombatSystem{
 
@@ -18,13 +20,16 @@ public abstract class Card implements CardCombatSystem{
     private String nickname;
     private String birthdate;
 
+    protected Integer age;
+
     // ATRIBUTES
     // byte uses only 8 bits (-128 hasta 128) - int uses 16 bits
-    protected Integer age;
+
     private Byte health;
     private Byte speed;
     private Byte dexterity;
     private Byte strength;
+    private Byte magic;
     private Byte level;
     private Byte armor;
 
@@ -37,6 +42,7 @@ public abstract class Card implements CardCombatSystem{
     public static final Byte dexterityMaxValue = 5;
 
     public static final Byte strengthMaxValue = 10;
+    public static final Byte magicMaxValue = 10;
 
     public static final Byte levelMaxValue = 10;
 
@@ -45,7 +51,62 @@ public abstract class Card implements CardCombatSystem{
     // IMAGE
     private String imageSrc;
 
-    public Card(String name, String nickname, String birthdate, byte age, byte health, byte speed, byte dexterity, byte strength, byte level, byte armor, String imageSrc) {
+    public Integer getShootPower() {
+        return shootPower;
+    }
+
+    public void setShootPower() {
+        this.shootPower = this.strength * this.dexterity * this.level;
+    }
+    public Integer getMagicPower() {
+        return magicPower;
+    }
+
+    public void setMagicPower() {
+        this.magicPower = this.magic * this.dexterity * this.level;
+    }
+
+    public Double getShootEffectiveness() {
+        return shootEffectiveness;
+    }
+
+    public void setShootEffectiveness() {
+        Random randomizer = new Random();
+        this.shootEffectiveness = Math.round(randomizer.nextFloat() * 100) / 100.0;
+    }
+
+    public Integer getHitValue() {
+        return hitValue;
+    }
+
+    public void setHitValue() {
+        this.hitValue = (int) (this.shootPower * this.shootEffectiveness);
+    }
+
+    public Integer getSpellValue() {
+        return spellValue;
+    }
+
+    public void setSpellValue() {
+        this.spellValue = (int) (this.magicPower *  this.shootEffectiveness);
+    }
+
+    public Integer getDefensePower() {
+        return defensePower;
+    }
+
+    public void setDefensePower() {
+        this.defensePower = this.armor * this.speed;
+    }
+
+    private Integer shootPower;
+    private Integer magicPower;
+    private Double shootEffectiveness;
+    private Integer spellValue;
+    private Integer hitValue;
+    private Integer defensePower;
+
+    public Card(String name, String nickname, String birthdate, byte age, byte health, byte speed, byte dexterity, byte strength, byte magic, byte armor, String imageSrc) {
         this.name = name;
         this.nickname = nickname;
         this.birthdate = birthdate;
@@ -54,10 +115,15 @@ public abstract class Card implements CardCombatSystem{
         this.setSpeed(speed);
         this.setDexterity(dexterity);
         this.setStrength(strength);
+        this.setMagic(magic);
         this.setLevel(level);
         this.setArmor(armor);
         this.imageSrc = imageSrc;
+
+        setCombatStats();
     }
+
+
 
     public TypeCard getTypeCard() {
         return typeCard;
@@ -150,6 +216,17 @@ public abstract class Card implements CardCombatSystem{
         this.strength = strength;
     }
 
+    public Byte getMagic() {
+        return magic;
+    }
+
+    public void setMagic(Byte magic) {
+        if (magic <= 0 || magic > magicMaxValue) {
+            throw new Error("Error Trying to Set the Strength Atrribute");
+        }
+        this.magic = magic;
+    }
+
     public Byte getLevel() {
         return level;
     }
@@ -180,6 +257,15 @@ public abstract class Card implements CardCombatSystem{
         this.imageSrc = imageSrc;
     }
 
+
+    public void setCombatStats (){
+        setShootPower();
+        setMagicPower();
+        setShootEffectiveness();
+        setHitValue();
+        setSpellValue();
+        setDefensePower();
+    }
     @Override
     public String toString() {
         return "Card{" +
