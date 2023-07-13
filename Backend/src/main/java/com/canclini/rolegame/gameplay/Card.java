@@ -7,13 +7,18 @@ import java.util.Random;
 @NoArgsConstructor
 public abstract class Card implements CardCombatSystem{
 
-    private enum TypeCard {
+    public enum CardType {
         HUMAN,
         ORC,
         ELF
     }
+    public enum MoveType {
+        HIT,
+        SPELL,
+        DEFEND
+    }
     // SE USA EN LA APLICACION CLIENTE
-    private TypeCard typeCard; // 1-> Human, 2-> Orc, 3-> Elf
+    private CardType typeCard; // 1-> Human, 2-> Orc, 3-> Elf
 
     // INFORMATION
     private String name;
@@ -125,15 +130,15 @@ public abstract class Card implements CardCombatSystem{
 
 
 
-    public TypeCard getTypeCard() {
+    public CardType getTypeCard() {
         return typeCard;
     }
 
     public void setTypeCard(int typeCardNumber) {
         switch (typeCardNumber) {
-            case 0 -> this.typeCard = TypeCard.HUMAN;
-            case 1 -> this.typeCard = TypeCard.ORC;
-            case 2 -> this.typeCard = TypeCard.ELF;
+            case 0 -> this.typeCard = CardType.HUMAN;
+            case 1 -> this.typeCard = CardType.ORC;
+            case 2 -> this.typeCard = CardType.ELF;
         }
     }
 
@@ -232,8 +237,11 @@ public abstract class Card implements CardCombatSystem{
     }
 
     public void setLevel(byte level) {
-        if (level <= 0 || level > levelMaxValue) {
+        if (level <= 0) {
             throw new Error("Error Trying to Set the Level Atrribute");
+        }
+        if (level > levelMaxValue) {
+            this.level = levelMaxValue;
         }
         this.level = level;
     }

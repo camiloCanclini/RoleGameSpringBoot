@@ -23,20 +23,24 @@ public class HumanCard extends Card{
 
     @Override
     public int hit(Card targetCard) {
-        return 0;
+        return ((getHitValue() - targetCard.getDefensePower())/500)*100;
     }
 
     @Override
     public int castSpell(Card targetCard) {
-        return 0;
+        return ((getSpellValue() - targetCard.getDefensePower())/500)*100;
     }
     @Override
-    public int defend(Card targetCard) {
-        return 0;
+    public int defend(Byte damageValueAttacker, MoveType moveType) { // Get The Damage Received (HIT or SPELL)
+        if (moveType == MoveType.HIT) {
+            return (int) (damageValueAttacker - (this.getDefensePower()* 1.8));
+        }else{
+            return (int) (damageValueAttacker - (this.getDefensePower()* 1.15)); // SPELL MOVE TYPE
+        }
     }
 
     @Override
-    public void levelUp(int level) {
-
+    public void levelUp(Byte level) {
+        setLevel(level);
     }
 }

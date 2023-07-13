@@ -13,7 +13,6 @@ import java.util.ArrayList;
 public class Player {
     private String namePlayer;
     private ArrayList<Card> cards = new ArrayList<>();
-    private WebSocketController.PlayerMovement movement = null;
 
     public Player(String namePlayer) {
         this.namePlayer = namePlayer;

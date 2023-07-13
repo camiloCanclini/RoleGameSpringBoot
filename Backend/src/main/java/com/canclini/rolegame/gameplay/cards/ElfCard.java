@@ -12,20 +12,24 @@ public class ElfCard extends Card {
 
     @Override
     public int hit(Card targetCard) {
-        return 0;
+        return (int) ((((getHitValue() - targetCard.getDefensePower())/500)*100)*1.4);
     }
 
     @Override
     public int castSpell(Card targetCard) {
-        return 0;
+        return (int) (((getSpellValue() - targetCard.getDefensePower())/500)*100);
     }
     @Override
-    public int defend(Card targetCard) {
-        return 0;
+    public int defend(Byte damageValueAttacker, MoveType moveType) { // Get The Damage Received (HIT or SPELL)
+        if (moveType == MoveType.HIT) {
+            return (int) (damageValueAttacker - (this.getDefensePower()* 1.3));
+        }else{
+            return (int) (damageValueAttacker - (this.getDefensePower()* 1.2)); // SPELL MOVE TYPE
+        }
     }
 
     @Override
-    public void levelUp(int level) {
-
+    public void levelUp(Byte level) {
+        setLevel(level);
     }
 }

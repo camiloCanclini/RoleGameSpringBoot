@@ -118,10 +118,14 @@ public class RoomController {
 
             room.setFullRoom(true); // Empieza la partida y se reparten las cartas
 
+            WebSocketController.roomMovements.put(roomId,null);
+
             WebSocketController.WsMessageModel message = new WebSocketController.WsMessageModel();
             message.type = WebSocketController.WsMessageModel.Type.ROOMREADY;
             message.data = null;
             WebSocketController.sendMessage(roomId, message);
+
+
             return ResponseEntity.ok(new PlayerId(2)); // Se le da el ID 2 al GUEST y se asigna
         }
         return ResponseEntity.badRequest().build();
