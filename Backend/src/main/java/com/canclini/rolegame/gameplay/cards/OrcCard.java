@@ -12,19 +12,21 @@ public class OrcCard extends Card {
 
     @Override
     public int hit(Card targetCard) {
-        return ((getHitValue() - targetCard.getDefensePower())/500)*100;
+        int result = (int) ((((getHitValue() - targetCard.getDefensePower())/500.0)*100)*1.3);
+        return result < 0 ? 0 : result;
     }
 
     @Override
     public int castSpell(Card targetCard) {
-        return ((getSpellValue() - targetCard.getDefensePower())/500)*100;
+        int result = (int) (((getSpellValue() - targetCard.getDefensePower())/500.0)*100);
+        return result < 0 ? 0 : result;
     }
     @Override
     public int defend(Byte damageValueAttacker, MoveType moveType) { // Get The Damage Received (HIT or SPELL)
         if (moveType == MoveType.HIT) {
-            return (int) (damageValueAttacker - (this.getDefensePower()* 1.8));
+            return (int) ( (this.getDefensePower()* 1.3)- damageValueAttacker);
         }else{
-            return (int) (damageValueAttacker - (this.getDefensePower()* 1.15)); // SPELL MOVE TYPE
+            return (int) ((this.getDefensePower()* 0.1) - damageValueAttacker); // SPELL MOVE TYPE
         }
     }
 

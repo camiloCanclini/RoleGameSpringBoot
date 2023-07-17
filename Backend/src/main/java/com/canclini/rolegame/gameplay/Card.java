@@ -5,7 +5,18 @@ import lombok.NoArgsConstructor;
 import java.util.Random;
 
 @NoArgsConstructor
-public abstract class Card implements CardCombatSystem{
+public abstract class Card implements CardCombatSystem, Cloneable{
+
+    @Override
+    public Card clone() {
+        try {
+            Card clone = (Card) super.clone();
+            // TODO: copy mutable state here, so the clone can't change the internals of the original
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
 
     public enum CardType {
         HUMAN,
@@ -265,6 +276,29 @@ public abstract class Card implements CardCombatSystem{
         this.imageSrc = imageSrc;
     }
 
+    public void getDamage (byte damageReceived){
+        if (this.health < damageReceived){
+            this.health = 0;
+        } else {
+            this.setHealth((byte) (this.health - damageReceived));
+        }
+    }
+
+    public void healCard (int healthReceived){
+        if (healthReceived > healthMaxValue){
+            this.health = 100;
+            return;
+        }
+        if (healthReceived + this.health > 100) {
+            this.health = 100;
+            return;
+        }
+        if (healthReceived <= 0) {
+            throw new RuntimeException("No se puede curar con valores negativos");
+        }
+        this.health = (byte) (this.health + healthReceived);
+
+    }
 
     public void setCombatStats (){
         setShootPower();

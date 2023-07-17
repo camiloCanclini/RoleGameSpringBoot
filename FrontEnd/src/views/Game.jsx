@@ -108,12 +108,15 @@ function Game() {
     }
     if (response.type == "MOVE") {
       console.log(messagesWs);
-      setShowLoading(false)
       setMessagesWs(messagesWs => [...messagesWs, response.message]);
     }
     if (response.type == "ERROR") {
       errorAlertFire()
       setTimeout(()=> window.history.go(-1),5000)
+    }
+    if (response.type == "SHIFT") {
+      getRoomInfo()
+      setShowLoading(false)
     }
   }
 

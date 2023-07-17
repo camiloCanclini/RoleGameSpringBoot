@@ -53,8 +53,6 @@ public class RoomController {
 
     @PostMapping
     public ResponseEntity<Integer> createRoom(@RequestBody @Valid RoomModel request) {
-        log.info(String.valueOf(request.stageId));
-        log.info(String.valueOf(!stageList.containsKey(request.stageId)));
         if (!stageList.containsKey(request.stageId)) {
             return ResponseEntity.badRequest().build();
         }
@@ -113,12 +111,12 @@ public class RoomController {
             room.setHostPlayer(new Player(playerName.name));
             return ResponseEntity.ok(new PlayerId(1)); // Se le da el ID 1 al HOST y se asigna
         }
-        if (room.getGuestPlayer() == null){ // Se une el Host
+        if (room.getGuestPlayer() == null){ // Se une el Guest
             room.setGuestPlayer(new Player(playerName.name));
 
             room.setFullRoom(true); // Empieza la partida y se reparten las cartas
 
-            WebSocketController.roomMovements.put(roomId,null);
+            WebSocketController.roomMovements.put(roomId,new WebSocketController.Movements());
 
             WebSocketController.WsMessageModel message = new WebSocketController.WsMessageModel();
             message.type = WebSocketController.WsMessageModel.Type.ROOMREADY;

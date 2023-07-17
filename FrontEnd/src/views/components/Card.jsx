@@ -83,22 +83,22 @@ function Card ({card, cardId}){
  
 
   return (
-    <div card-id={cardId} className={'card flex flex-col w-40 z-10 h-72 overflow-hidden rounded-3xl border-4 border-4 relative '+ (choosingMove ? 'z-50' : null)} onClick={(e)=>{ selectCard(e)}} onMouseOver={(e)=> {cardHover(e)}} onMouseLeave={(e)=> {cardUnHover(e)}}>
+    <div card-id={cardId} className={'card flex flex-col w-40 h-80 z-10 overflow-hidden rounded-3xl border-4 border-4 relative '+ (choosingMove ? 'z-50' : null)} onClick={(e)=>{ selectCard(e)}} onMouseOver={(e)=> {cardHover(e)}} onMouseLeave={(e)=> {cardUnHover(e)}}>
       <div className='absolute top-0 right-0 bg-red-700 rounded-full w-12 h-12 z-40 flex items-center justify-center border-2 text-xl overflow-hidden'>{card.health}</div>
       <div className='absolute top-0 left-0 bg-cyan-700 rounded-full w-12 h-12 z-40 flex items-center justify-center border-2 text-3xl overflow-hidden'>{card.level}</div>
       <img src="https://e1.pxfuel.com/desktop-wallpaper/327/350/desktop-wallpaper-medieval-times-medieval-background.jpg" alt="" className='absolute object-cover z-20 w-full h-full'/>
-      <img src="https://pngimg.com/d/medival_knight_PNG15928.png" alt="" className='z-30 object-contain w-full h-4/6'/>
+      <img src="https://pngimg.com/d/medival_knight_PNG15928.png" alt="" className='z-30 object-cover w-full h-3/5'/>
       <div className='woodPattern z-40 grow flex p-2 flex-col'>
         <div className='d-flex'>
           <p className='text-sm text-right'>{card.typeCard}</p>
           <p className='relative bottom-2'>{card.name}</p>
         </div>
         <div className='w-full'>
-          <ul className='flex justify-center items-center gap-2 w-full text-base'>
-            <li><i className="fa-solid fa-hand-fist"></i> {card.strength}</li>
-            <li><i className="fa-solid fa-shield-halved"></i> {card.armor}</li>
-            <li><i className="fa-solid fa-bolt"></i> {card.dexterity}</li>
-            <li><i className="fa-solid fa-person-running"></i> {card.speed}</li>
+          <ul className='flex justify-evenly items-center gap-2 w-full text-base'>
+            <li className='flex flex-col items-center gap-1'><i className="fa-solid fa-hand-fist"></i> {card.strength}</li>
+            <li className='flex flex-col items-center gap-1'><i className="fa-solid fa-shield-halved"></i> {card.armor}</li>
+            <li className='flex flex-col items-center gap-1'><i className="fa-solid fa-bolt"></i> {card.dexterity}</li>
+            <li className='flex flex-col items-center gap-1'><i className="fa-solid fa-person-running"></i> {card.speed}</li>
           </ul>
         </div>
       </div>

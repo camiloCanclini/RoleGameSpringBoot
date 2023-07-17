@@ -10,9 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 public class RolegameApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(RolegameApplication.class, args);
 	}
-
 }
