@@ -287,30 +287,37 @@ public class WebSocketController {
         WsResultModel messageToSend = new WsResultModel();
         Card hostCard = searchCardById(roomId, hostCardUsed);
         Card guestCard = searchCardById(roomId, guestCardUsed);
-        int guestDamage;
-        int hostDamage;
+        int guestDamage = 0;
+        int hostDamage = 0;
         int result;
 
         if (hostTargetCard.equals(guestCardUsed) && hostCardUsed.equals(guestTargetCard)) { // LAS CARTAS SE CRUZAN
+            log.info("La cartas se cruzan");
             if (hostMoveType.equals(guestMoveType)) {
+                log.info("Mismo tipo de movimientos");
                 messageToSend.type = WsResultModel.Type.SHIFT;
-                messageToSend.data = new MovementsResult(null, null, 3); // Empate
+                MovementsResult.PlayerResult hostResult = new MovementsResult.PlayerResult(hostTargetCard, hostCardUsed, hostMoveType, 0,0);
+                MovementsResult.PlayerResult guestResult = new MovementsResult.PlayerResult(guestTargetCard, guestCardUsed, guestMoveType, 0, 0);
+                messageToSend.data = new MovementsResult(hostResult, guestResult, 3); // Empate
                 messageToSend.message = "The Moves Were Canceled";
                 sendMessage(roomId, messageToSend);
                 return;
             }else{
-
+                log.info("Distinto tipo de movimientos");
                 if (hostMoveType.equals("HIT") && guestMoveType.equals("SPELL")) { // HOST HIT WINS
 
                     messageToSend.type = WsResultModel.Type.SHIFT;
 
                     guestDamage = guestCard.castSpell(hostCard);
                     hostDamage = hostCard.hit(guestCard);
+                    log.info("guestDamage: "+guestDamage);
+                    log.info("hostDamage: "+hostDamage);
                     result = (int) (hostDamage - (guestDamage * 0.3)); // HIT WINS
 
                     if (result < 0){
-                        result = 5; // Daño minimo
+                        result = 15; // Daño minimo
                     }
+                    log.info("result: "+result);
                     guestCard.getDamage((byte) result);
 
                     MovementsResult.PlayerResult hostResult = new MovementsResult.PlayerResult(hostTargetCard, hostCardUsed, hostMoveType, result, 0);
@@ -331,8 +338,13 @@ public class WebSocketController {
                     result = (int) (guestDamage - (hostDamage * 0.3)); // HIT WINS
 
                     if (result < 0){
-                        result = 5; // Daño minimo
+                        result = 15; // Daño minimo
                     }
+
+                    log.info("guestDamage: "+guestDamage);
+                    log.info("hostDamage: "+hostDamage);
+                    log.info("result: "+result);
+
                     hostCard.getDamage((byte) result);
 
                     MovementsResult.PlayerResult hostResult = new MovementsResult.PlayerResult(hostTargetCard, hostCardUsed, hostMoveType, result, 0);
@@ -347,6 +359,7 @@ public class WebSocketController {
 
         }
         if (hostTargetCard.equals(guestTargetCard)) {
+            log.info("Los objetivos Son Iguales");
             // LOGICA DE DEFENSA - UNO ATACA Y EL OTRO DEFIENDE
             int defendValue;
             if (Objects.equals(hostMoveType, "DEFEND") && Objects.equals(guestMoveType, "HIT")){
@@ -362,15 +375,17 @@ public class WebSocketController {
                     MovementsResult.PlayerResult hostResult = new MovementsResult.PlayerResult(hostTargetCard, hostCardUsed, hostMoveType, defendValue, 0);
                     MovementsResult.PlayerResult guestResult = new MovementsResult.PlayerResult(guestTargetCard, guestCardUsed, guestMoveType, 0, guestDamage);
                     messageToSend.data = new MovementsResult(hostResult, guestResult, 1);
-                    hostCard.healCard(defendValue);
+                    hostCard.healCard((int) (defendValue*0.15));
                 } else {
                     messageToSend.message = "The Defend Lost";
                     MovementsResult.PlayerResult hostResult = new MovementsResult.PlayerResult(hostTargetCard, hostCardUsed, hostMoveType, defendValue, 0);
                     MovementsResult.PlayerResult guestResult = new MovementsResult.PlayerResult(guestTargetCard, guestCardUsed, guestMoveType, 0, defendValue);
                     messageToSend.data = new MovementsResult(hostResult, guestResult, 2);
-                    hostCard.getDamage((byte) ~(defendValue - 1));
+                    hostCard.getDamage((byte) -defendValue);
                 }
-
+                log.info("defendValue: "+defendValue);
+                log.info("guestDamage: "+guestDamage);
+                log.info("hostDamage: "+hostDamage);
                 sendMessage(roomId, messageToSend);
                 return;
             }
@@ -387,15 +402,17 @@ public class WebSocketController {
                     MovementsResult.PlayerResult hostResult = new MovementsResult.PlayerResult(hostTargetCard, hostCardUsed, hostMoveType, defendValue, 0);
                     MovementsResult.PlayerResult guestResult = new MovementsResult.PlayerResult(guestTargetCard, guestCardUsed, guestMoveType, 0 , defendValue);
                     messageToSend.data = new MovementsResult(hostResult, guestResult, 1);
-                    hostCard.healCard(defendValue);
+                    hostCard.healCard((int) (defendValue*0.15));
                 } else {
                     messageToSend.message = "The Defend Lost";
                     MovementsResult.PlayerResult hostResult = new MovementsResult.PlayerResult(hostTargetCard, hostCardUsed, hostMoveType, defendValue, 0);
                     MovementsResult.PlayerResult guestResult = new MovementsResult.PlayerResult(guestTargetCard, guestCardUsed, guestMoveType, 0, defendValue);
                     messageToSend.data = new MovementsResult(hostResult, guestResult, 2);
-                    hostCard.getDamage((byte) ~(defendValue - 1));
+                    hostCard.getDamage((byte) -defendValue);
                 }
-
+                log.info("defendValue: "+defendValue);
+                log.info("guestDamage: "+guestDamage);
+                log.info("hostDamage: "+hostDamage);
                 sendMessage(roomId, messageToSend);
                 return;
             }
@@ -412,15 +429,17 @@ public class WebSocketController {
                     MovementsResult.PlayerResult hostResult = new MovementsResult.PlayerResult(hostTargetCard, hostCardUsed, hostMoveType, 0, 0);
                     MovementsResult.PlayerResult guestResult = new MovementsResult.PlayerResult(guestTargetCard, guestCardUsed, guestMoveType, 0, 0);
                     messageToSend.data = new MovementsResult(hostResult, guestResult, 2);
-                    guestCard.healCard(defendValue);
+                    guestCard.healCard((int) (defendValue*0.15));
                 } else {
                     messageToSend.message = "The Defend Lost";
                     MovementsResult.PlayerResult hostResult = new MovementsResult.PlayerResult(hostTargetCard, hostCardUsed, hostMoveType, 0, defendValue);
                     MovementsResult.PlayerResult guestResult = new MovementsResult.PlayerResult(guestTargetCard, guestCardUsed, guestMoveType, defendValue, 0);
                     messageToSend.data = new MovementsResult(hostResult, guestResult, 1);
-                    guestCard.getDamage((byte) ~(defendValue - 1));
+                    guestCard.getDamage((byte) -defendValue);
                 }
-
+                log.info("defendValue: "+defendValue);
+                log.info("guestDamage: "+guestDamage);
+                log.info("hostDamage: "+hostDamage);
                 sendMessage(roomId, messageToSend);
                 return;
             }
@@ -437,39 +456,71 @@ public class WebSocketController {
                     MovementsResult.PlayerResult hostResult = new MovementsResult.PlayerResult(hostTargetCard, hostCardUsed, hostMoveType, 0, 0);
                     MovementsResult.PlayerResult guestResult = new MovementsResult.PlayerResult(guestTargetCard, guestCardUsed, guestMoveType, 0, 0);
                     messageToSend.data = new MovementsResult(hostResult, guestResult, 2);
-                    guestCard.healCard(defendValue);
+                    guestCard.healCard((int) (defendValue*0.15));
                 } else {
                     messageToSend.message = "The Defend Lost";
                     MovementsResult.PlayerResult hostResult = new MovementsResult.PlayerResult(hostTargetCard, hostCardUsed, hostMoveType, 0, defendValue);
                     MovementsResult.PlayerResult guestResult = new MovementsResult.PlayerResult(guestTargetCard, guestCardUsed, guestMoveType, defendValue, 0);
                     messageToSend.data = new MovementsResult(hostResult, guestResult, 1);
-                    guestCard.getDamage((byte) ~(defendValue - 1));
+                    guestCard.getDamage((byte) -defendValue);
                 }
-
+                log.info("defendValue: "+defendValue);
+                log.info("guestDamage: "+guestDamage);
+                log.info("hostDamage: "+hostDamage);
                 sendMessage(roomId, messageToSend);
                 return;
             }
         } else {
+            log.info("Los objetivos Son Distintos");
             if (Objects.equals(hostMoveType, "HIT")){
                 // HOST HIT
+                hostDamage = hostCard.hit(guestCard);
+                if (hostDamage <= 0) {
+                    log.info("check");
+                    hostDamage = 10;
+                }
+                guestCard.getDamage((byte) hostDamage);
             }
             if (Objects.equals(hostMoveType, "SPELL")){
                 // HOST SPELL
+                hostDamage = hostCard.castSpell(guestCard);
+                if (hostDamage <= 0) {
+                    log.info("check");
+                    hostDamage = 10;
+                }
+                guestCard.getDamage((byte) hostDamage);
             }
             if (Objects.equals(guestMoveType, "HIT")){
                 // GUEST HIT
+                guestDamage = guestCard.hit(hostCard);
+                if (guestDamage <= 0) {
+                    log.info("check");
+                    guestDamage = 10;
+                }
+                hostCard.getDamage((byte) guestDamage);
             }
+
+
             if (Objects.equals(guestMoveType, "SPELL")){
                 // GUEST SPELL
+                guestDamage = guestCard.castSpell(hostCard);
+                if (guestDamage <= 0) {
+                    log.info("check");
+                    guestDamage = 10;
+                }
+                hostCard.getDamage((byte) guestDamage);
             }
-            return;
+            log.info("guestDamage: "+guestDamage);
+            log.info("hostDamage: "+hostDamage);
+            MovementsResult.PlayerResult hostResult = new MovementsResult.PlayerResult(hostTargetCard, hostCardUsed, hostMoveType, guestDamage, hostDamage);
+            MovementsResult.PlayerResult guestResult = new MovementsResult.PlayerResult(guestTargetCard, guestCardUsed, guestMoveType, hostDamage, guestDamage);
+            messageToSend.data = new MovementsResult(hostResult, guestResult, 3);
+            messageToSend.type = WsResultModel.Type.SHIFT;
+            messageToSend.message = "Both Movements Take Effect";
+            sendMessage(roomId, messageToSend);
         }
 
 
-        messageToSend.type = WsResultModel.Type.SHIFT;
-        messageToSend.data = null;
-        messageToSend.message = "Nothing Happend";
-        sendMessage(roomId, messageToSend);
     }
     @MessageMapping("/room/{roomId}/interact")
     public void interactWithRoom (@DestinationVariable Integer roomId, @Payload ModelPlayerMovement serializedMessage) throws Exception {

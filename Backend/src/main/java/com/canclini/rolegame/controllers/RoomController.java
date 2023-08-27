@@ -53,6 +53,7 @@ public class RoomController {
 
     @PostMapping
     public ResponseEntity<Integer> createRoom(@RequestBody @Valid RoomModel request) {
+
         if (!stageList.containsKey(request.stageId)) {
             return ResponseEntity.badRequest().build();
         }

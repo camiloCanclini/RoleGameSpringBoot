@@ -1,7 +1,7 @@
 import './RoomBox.css'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
-import "../alertWood.css";
+import "../../alertWood.css";
 
 // eslint-disable-next-line react/prop-types
 function RoomBox({background, playerHost, roomId}){

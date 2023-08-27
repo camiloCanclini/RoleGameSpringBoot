@@ -28,21 +28,21 @@ public class HumanCard extends Card{
 
     @Override
     public int hit(Card targetCard) {
-        int result = (int) (((getHitValue() - targetCard.getDefensePower())/500.0)*100);
-        return result < 0 ? 0 : result;
+        int result = (int) (((getHitValue() - targetCard.getDefensePower())/500.0)*100)*3;
+        return Math.max(result, 0);
     }
 
     @Override
     public int castSpell(Card targetCard) {
-        int result = (int) (((getSpellValue() - targetCard.getDefensePower())/500.0)*100);
-        return result < 0 ? 0 : result;
+        int result = (int) (((getSpellValue() - targetCard.getDefensePower())/500.0)*100)*3;
+        return Math.max(result, 0);
     }
     @Override
     public int defend(Byte damageValueAttacker, MoveType moveType) { // Get The Damage Received (HIT or SPELL)
         if (moveType == MoveType.HIT) {
-            return (int) ((this.getDefensePower()* 1.8) - damageValueAttacker); // Si el resultado es negativo se devuelve 0
+            return (int) ((this.getDefensePower()* 1.8) - damageValueAttacker)*2; // Si el resultado es negativo se devuelve 0
         }else{
-            return (int) ((this.getDefensePower()* 0.35) - damageValueAttacker); // SPELL MOVE TYPE
+            return (int) ((this.getDefensePower()* 0.35) - damageValueAttacker)*2; // SPELL MOVE TYPE
         }
     }
 

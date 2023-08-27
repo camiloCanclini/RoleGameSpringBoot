@@ -1,16 +1,17 @@
 import "./Game.css";
-import "./alertWood.css";
+import "../alertWood.css";
 import { useEffect, useState, useContext } from "react";
 import { useLocation } from 'react-router-dom';
 import axios from "axios";
 import Swal from "sweetalert2";
-import Hud from './components/Hud.jsx'
-import Logger from './components/Logger.jsx'
-import StageInfo from "./components/StageInfo";
+import Hud from '../components/Hud/Hud.jsx'
+import Logger from '../components/Logger/Logger'
+import StageInfo from "../components/Stage/StageInfo";
 import { RotatingLines } from "react-loader-spinner";
 import Sockjs from "sockjs-client/dist/sockjs"
 import Stomp from "stompjs";
-import { GameContext } from "../GameContext";
+import { GameContext } from "../../GameContext";
+import ResultPopUp from "../components/ResultPopUp/ResultPopUp";
 
 /*
    
@@ -51,6 +52,7 @@ function Game() {
   const roomId = url.split("/").pop();
   const [showDoneBtn, setShowDoneBtn] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
+  const [result, setResult] = useState(null)
 
   
 
@@ -117,6 +119,7 @@ function Game() {
     if (response.type == "SHIFT") {
       getRoomInfo()
       setShowLoading(false)
+      setResult(response)
     }
   }
 
@@ -214,7 +217,7 @@ function Game() {
     
       (gameStarted && room) 
       ?
-      <GameContext.Provider value={{id, room, moveType, setMoveType, choosingMove, setChoosingMove, targetCard, settargetCard, myCard, setMyCard}}>
+      <GameContext.Provider value={{id, room, moveType, setMoveType, choosingMove, setChoosingMove, targetCard, settargetCard, myCard, setMyCard, result, setResult}}>
         {showLoading?
           <>
             <div className="absolute flex flex-col items-center justify-center z-50 text-6xl mb-8 w-full h-full backdrop-blur-md"> 
@@ -243,6 +246,12 @@ function Game() {
             </div>
             
             :null
+            }
+            {
+            result != null? 
+            <ResultPopUp/>
+            :
+            null
             }
             <div className="relative min-h-screen flex flex-col items-center justify-center gap-8 text-2xl">
               {(choosingMove == true)?<div className="bg-black opacity-50 z-40 absolute w-full h-full" onClick={()=>{

@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 //import testData from "../testData";
 import "./Home.css";
-import "./alertWood.css";
-import bgImg from "../assets/backgroundImages/menuBackground.jpg";
-import "../woodPattern.css";
-import RoomBox from "./components/RoomBox";
+import "../alertWood.css";
+import bgImg from "../../assets/backgroundImages/menuBackground.jpg";
+import "../../woodPattern.css";
+import RoomBox from "../components/RoomBox/RoomBox";
 import axios from "axios";
-import './volumeController.css'
+import '../volumeController.css'
 
 
 function App() {

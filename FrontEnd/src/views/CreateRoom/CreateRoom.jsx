@@ -1,12 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import "./CreateRoom.css";
-import "./alertWood.css"
-import "../woodPattern.css";
-import bgImg from "../assets/backgroundImages/createRoomBg.jpg";
+import "../alertWood.css"
+import "../../woodPattern.css";
+import bgImg from "../../assets/backgroundImages/createRoomBg.jpg";
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2'
 import axios from 'axios';
-import Stage from './components/Stage.jsx'
+import Stage from '../components/Stage/Stage'
 
 function CreateRoom() {
 

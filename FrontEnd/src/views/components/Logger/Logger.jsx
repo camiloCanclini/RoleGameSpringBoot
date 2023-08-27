@@ -1,5 +1,5 @@
 import './Logger.css'
-import '../../woodPattern.css'
+import '../../../woodPattern.css'
 
 function Logger ({messagesWs}){
   

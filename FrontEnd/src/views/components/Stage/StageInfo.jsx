@@ -1,6 +1,6 @@
-import '../../woodPattern.css'
+import '../../../woodPattern.css'
 import './stageInfo.css'
-import { GameContext } from '../../GameContext';
+import { GameContext } from '../../../GameContext';
 
 import { useContext } from 'react';
 

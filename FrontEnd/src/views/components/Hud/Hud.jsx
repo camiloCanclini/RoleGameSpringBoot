@@ -1,8 +1,8 @@
 import './Hud.css'
-import '../../woodPattern.css'
-import woodPattern from '../../assets/pattern/wood.jpg'
-import Card from './Card.jsx'
-import {GameContext} from '../../GameContext';
+import '../../../woodPattern.css'
+import woodPattern from '../../../assets/pattern/wood.jpg'
+import Card from '../Card/Card'
+import {GameContext} from '../../../GameContext';
 import { useContext } from 'react'
 
 

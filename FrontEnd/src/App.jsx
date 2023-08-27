@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import CreateRoom from './views/CreateRoom.jsx';
-import Home from './views/Home.jsx';
-import Game from './views/Game.jsx';
+import CreateRoom from './views/CreateRoom/CreateRoom';
+import Home from './views/Home/Home.jsx';
+import Game from './views/Game/Game.jsx';
 function App() {
   return (
     <BrowserRouter>

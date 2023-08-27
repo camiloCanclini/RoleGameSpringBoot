@@ -1,6 +1,6 @@
 import './Card.css'
-import '../../woodPattern.css'
-import { GameContext } from '../../GameContext';
+import '../../../woodPattern.css'
+import { GameContext } from '../../../GameContext';
 
 import { useContext } from 'react';
 

@@ -1,9 +1,11 @@
 package com.canclini.rolegame.gameplay;
 
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 
 import java.util.Random;
-
+@Slf4j
 @NoArgsConstructor
 public abstract class Card implements CardCombatSystem, Cloneable{
 
@@ -193,7 +195,7 @@ public abstract class Card implements CardCombatSystem, Cloneable{
     }
 
     public void setHealth(byte health) {
-        if (health <= 0 || health > healthMaxValue) {
+        if (health < 0 || health > healthMaxValue) {
             throw new Error("Error Trying to Set the Health Atrribute");
         }
         this.health = health;
@@ -280,6 +282,8 @@ public abstract class Card implements CardCombatSystem, Cloneable{
         if (this.health < damageReceived){
             this.health = 0;
         } else {
+            log.info(String.valueOf("daño: "+damageReceived));
+            log.info(String.valueOf((this.health - damageReceived)));
             this.setHealth((byte) (this.health - damageReceived));
         }
     }
@@ -289,12 +293,12 @@ public abstract class Card implements CardCombatSystem, Cloneable{
             this.health = 100;
             return;
         }
-        if (healthReceived + this.health > 100) {
+        if ((healthReceived + this.health) > 100) {
             this.health = 100;
             return;
         }
         if (healthReceived <= 0) {
-            throw new RuntimeException("No se puede curar con valores negativos");
+            return;
         }
         this.health = (byte) (this.health + healthReceived);
 
