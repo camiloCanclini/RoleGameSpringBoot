@@ -1,12 +1,10 @@
-package com.canclini.rolegame.controllers;
+package com.canclini.rolegame.Controllers;
 
-import com.canclini.rolegame.gameplay.Player;
-import com.canclini.rolegame.gameplay.Room;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import com.canclini.rolegame.gameplay.Stage;
+import com.canclini.rolegame.Controllers.WebSockets.WebSocketController;
+import com.canclini.rolegame.Controllers.WebSockets.Dtos.WsMessageDto;
+import com.canclini.rolegame.Game.Entities.Player;
+import com.canclini.rolegame.Game.Entities.Room;
+import com.canclini.rolegame.Game.Entities.Stage;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,6 +15,9 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RestController
@@ -119,8 +120,8 @@ public class RoomController {
 
             WebSocketController.roomMovements.put(roomId,new WebSocketController.Movements());
 
-            WebSocketController.WsMessageModel message = new WebSocketController.WsMessageModel();
-            message.type = WebSocketController.WsMessageModel.Type.ROOMREADY;
+            WsMessageDto message = new WsMessageDto();
+            message.type = WsMessageDto.Type.ROOMREADY;
             message.data = null;
             WebSocketController.sendMessage(roomId, message);
 

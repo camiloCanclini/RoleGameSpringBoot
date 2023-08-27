@@ -1,6 +1,6 @@
-package com.canclini.rolegame.gameplay;
+package com.canclini.rolegame.Game.Entities;
 
-import com.canclini.rolegame.controllers.WebSocketController;
+import com.canclini.rolegame.Game.Entities.Cards.Card;
 import lombok.*;
 
 import java.util.ArrayList;

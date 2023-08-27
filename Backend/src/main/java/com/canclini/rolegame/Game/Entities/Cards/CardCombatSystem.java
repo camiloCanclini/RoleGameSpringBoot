@@ -1,4 +1,4 @@
-package com.canclini.rolegame.gameplay;
+package com.canclini.rolegame.Game.Entities.Cards;
 
 public interface CardCombatSystem {
     public int hit(Card targetCard);

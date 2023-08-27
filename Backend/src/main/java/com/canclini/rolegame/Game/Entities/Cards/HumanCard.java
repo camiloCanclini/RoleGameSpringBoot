@@ -1,6 +1,5 @@
-package com.canclini.rolegame.gameplay.cards;
+package com.canclini.rolegame.Game.Entities.Cards;
 
-import com.canclini.rolegame.gameplay.Card;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,17 +1,16 @@
-package com.canclini.rolegame.gameplay;
+package com.canclini.rolegame.Game.Entities;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Random;
-
-import com.canclini.rolegame.gameplay.cards.ElfCard;
-import com.canclini.rolegame.gameplay.cards.HumanCard;
-import com.canclini.rolegame.gameplay.cards.OrcCard;
+import com.canclini.rolegame.Game.Entities.Cards.Card;
+import com.canclini.rolegame.Game.Entities.Cards.ElfCard;
+import com.canclini.rolegame.Game.Entities.Cards.HumanCard;
+import com.canclini.rolegame.Game.Entities.Cards.OrcCard;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Random;
 
 @Getter
 @Setter

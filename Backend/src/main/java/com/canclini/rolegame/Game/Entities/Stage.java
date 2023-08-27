@@ -1,6 +1,5 @@
-package com.canclini.rolegame.gameplay;
+package com.canclini.rolegame.Game.Entities;
 
-import com.canclini.rolegame.controllers.RoomController;
 import lombok.Getter;
 
 @Getter

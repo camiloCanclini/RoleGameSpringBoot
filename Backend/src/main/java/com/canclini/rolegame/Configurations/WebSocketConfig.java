@@ -1,4 +1,4 @@
-package com.canclini.rolegame;
+package com.canclini.rolegame.Configurations;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
