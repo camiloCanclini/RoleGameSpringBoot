@@ -1,16 +1,17 @@
 package com.canclini.rolegame.Game.Logic;
 
+import com.canclini.rolegame.Controllers.RoomController;
 import com.canclini.rolegame.Controllers.WebSockets.Dtos.MovementResultDto;
 import com.canclini.rolegame.Controllers.WebSockets.Dtos.WsResultDto;
 import com.canclini.rolegame.Controllers.WebSockets.WebSocketController;
 import com.canclini.rolegame.Game.Entities.Cards.Card;
+import com.canclini.rolegame.Game.Entities.Room;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;
 @Slf4j
 public class CombatLogic {
-
-    public static void processingTurn(Integer roomId){
+    public static WsResultDto processingTurn(Integer roomId){
 
         WebSocketController.Movements movements = WebSocketController.roomMovements.get(roomId);
 
@@ -42,9 +43,10 @@ public class CombatLogic {
                 MovementResultDto.PlayerResult guestResult = new MovementResultDto.PlayerResult(guestTargetCard, guestCardUsed, guestMoveType, 0, 0);
                 messageToSend.data = new MovementResultDto(hostResult, guestResult, 3); // Empate
                 messageToSend.message = "The Moves Were Canceled";
-                WebSocketController.sendMessage(roomId, messageToSend);
-                return;
-            }else{
+
+                return messageToSend;
+            }
+            else{
                 log.info("Distinto tipo de movimientos");
                 if (hostMoveType.equals("HIT") && guestMoveType.equals("SPELL")) { // HOST HIT WINS
 
@@ -62,13 +64,12 @@ public class CombatLogic {
                     log.info("result: "+result);
                     guestCard.getDamage((byte) result);
 
-                    MovementResultDto.PlayerResult hostResult = new MovementResultDto.PlayerResult(hostTargetCard, hostCardUsed, hostMoveType, result, 0);
-                    MovementResultDto.PlayerResult guestResult = new MovementResultDto.PlayerResult(guestTargetCard, guestCardUsed, guestMoveType, 0, result);
+                    MovementResultDto.PlayerResult hostResult = new MovementResultDto.PlayerResult(hostTargetCard, hostCardUsed, hostMoveType, 0, result);
+                    MovementResultDto.PlayerResult guestResult = new MovementResultDto.PlayerResult(guestTargetCard, guestCardUsed, guestMoveType, result, 0);
 
                     messageToSend.data = new MovementResultDto(hostResult, guestResult, 1);
                     messageToSend.message = "The HIT MOVE Wins";
-                    WebSocketController.sendMessage(roomId, messageToSend);
-                    return;
+                    return messageToSend;
                 }
                 if (hostMoveType.equals("SPELL") && Objects.equals(guestMoveType, "HIT")) { // GUEST HIT GANA
 
@@ -94,8 +95,8 @@ public class CombatLogic {
 
                     messageToSend.data = new MovementResultDto(hostResult, guestResult, 2);
                     messageToSend.message = "The HIT MOVE Wins";
-                    WebSocketController.sendMessage(roomId, messageToSend);
-                    return;
+
+                    return messageToSend;
                 }
             }
 
@@ -114,22 +115,21 @@ public class CombatLogic {
 
                 if (defendValue > 0){
                     messageToSend.message = "The Defend Wins (The Card Heals)";
-                    MovementResultDto.PlayerResult hostResult = new MovementResultDto.PlayerResult(hostTargetCard, hostCardUsed, hostMoveType, defendValue, 0);
+                    MovementResultDto.PlayerResult hostResult = new MovementResultDto.PlayerResult(hostTargetCard, hostCardUsed, hostMoveType, -defendValue, 0);
                     MovementResultDto.PlayerResult guestResult = new MovementResultDto.PlayerResult(guestTargetCard, guestCardUsed, guestMoveType, 0, guestDamage);
                     messageToSend.data = new MovementResultDto(hostResult, guestResult, 1);
-                    hostCard.healCard((int) (defendValue*0.15));
+                    hostCard.healCard((int) (-defendValue*0.15));
                 } else {
                     messageToSend.message = "The Defend Lost";
                     MovementResultDto.PlayerResult hostResult = new MovementResultDto.PlayerResult(hostTargetCard, hostCardUsed, hostMoveType, defendValue, 0);
                     MovementResultDto.PlayerResult guestResult = new MovementResultDto.PlayerResult(guestTargetCard, guestCardUsed, guestMoveType, 0, defendValue);
                     messageToSend.data = new MovementResultDto(hostResult, guestResult, 2);
-                    hostCard.getDamage((byte) -defendValue);
+                    hostCard.getDamage((byte) defendValue);
                 }
                 log.info("defendValue: "+defendValue);
                 log.info("guestDamage: "+guestDamage);
                 log.info("hostDamage: "+hostDamage);
-                WebSocketController.sendMessage(roomId, messageToSend);
-                return;
+                return messageToSend;
             }
             if (Objects.equals(hostMoveType, "DEFEND") && Objects.equals(guestMoveType, "SPELL")){
                 // HOST DEFEND PIERDE
@@ -141,7 +141,7 @@ public class CombatLogic {
 
                 if (defendValue > 0){
                     messageToSend.message = "The Defend Wins (The Card Heals)";
-                    MovementResultDto.PlayerResult hostResult = new MovementResultDto.PlayerResult(hostTargetCard, hostCardUsed, hostMoveType, defendValue, 0);
+                    MovementResultDto.PlayerResult hostResult = new MovementResultDto.PlayerResult(hostTargetCard, hostCardUsed, hostMoveType, -defendValue, 0);
                     MovementResultDto.PlayerResult guestResult = new MovementResultDto.PlayerResult(guestTargetCard, guestCardUsed, guestMoveType, 0 , defendValue);
                     messageToSend.data = new MovementResultDto(hostResult, guestResult, 1);
                     hostCard.healCard((int) (defendValue*0.15));
@@ -155,8 +155,8 @@ public class CombatLogic {
                 log.info("defendValue: "+defendValue);
                 log.info("guestDamage: "+guestDamage);
                 log.info("hostDamage: "+hostDamage);
-                WebSocketController.sendMessage(roomId, messageToSend);
-                return;
+
+                return messageToSend;
             }
             if (Objects.equals(hostMoveType, "HIT") && Objects.equals(guestMoveType, "DEFEND")){
                 // GUEST DEFEND GANA
@@ -182,8 +182,8 @@ public class CombatLogic {
                 log.info("defendValue: "+defendValue);
                 log.info("guestDamage: "+guestDamage);
                 log.info("hostDamage: "+hostDamage);
-                WebSocketController.sendMessage(roomId, messageToSend);
-                return;
+
+                return messageToSend;
             }
             if (Objects.equals(hostMoveType, "SPELL") && Objects.equals(guestMoveType, "DEFEND")){
                 // GUEST DEFEND PIERDE
@@ -209,10 +209,11 @@ public class CombatLogic {
                 log.info("defendValue: "+defendValue);
                 log.info("guestDamage: "+guestDamage);
                 log.info("hostDamage: "+hostDamage);
-                WebSocketController.sendMessage(roomId, messageToSend);
-                return;
+
+                return messageToSend;
             }
-        } else {
+        }
+        else{
             log.info("Los objetivos Son Distintos");
             if (Objects.equals(hostMoveType, "HIT")){
                 // HOST HIT
@@ -259,9 +260,43 @@ public class CombatLogic {
             messageToSend.data = new MovementResultDto(hostResult, guestResult, 3);
             messageToSend.type = WsResultDto.Type.SHIFT;
             messageToSend.message = "Both Movements Take Effect";
-            WebSocketController.sendMessage(roomId, messageToSend);
+
+            return messageToSend;
         }
 
+        messageToSend.data = null;
+        messageToSend.type = WsResultDto.Type.ERROR;
+        messageToSend.message = "INTERNAL SERVER ERROR!";
+
+        return messageToSend;
+    }
+
+    public static int GameFinishCheck (Integer roomId){
+        boolean playerOneLost = true;
+        boolean playerTwoLost = true;
+        Room room = RoomController.roomList.get(roomId);
+        for (Card card : room.getHostPlayer().getCards()) {
+            if (card.getHealth() > 0) {
+                playerOneLost = false;
+                break;
+            }
+        }
+        for (Card card : room.getGuestPlayer().getCards()) {
+            if (card.getHealth() > 0) {
+                playerTwoLost = false;
+                break;
+            }
+        }
+        if (playerOneLost && !playerTwoLost) {
+            return 1;    //jugador 1 gana
+        } else if (!playerOneLost && playerTwoLost) {
+            return 2; //jugador 2 gana
+        } else if (playerOneLost && playerTwoLost) {
+            return 3; //empate
+        }else{
+            return 0; //Sigue, nadie gana.
+        }
 
     }
+
 }

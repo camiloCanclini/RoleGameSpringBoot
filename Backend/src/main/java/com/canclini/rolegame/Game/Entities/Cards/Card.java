@@ -195,7 +195,7 @@ public abstract class Card implements CardCombatSystem, Cloneable{
 
     public void setHealth(byte health) {
         if (health < 0 || health > healthMaxValue) {
-            throw new Error("Error Trying to Set the Health Atrribute");
+            this.health = 0;
         }
         this.health = health;
     }
@@ -278,7 +278,7 @@ public abstract class Card implements CardCombatSystem, Cloneable{
     }
 
     public void getDamage (byte damageReceived){
-        if (this.health < damageReceived){
+        if (this.health <= damageReceived){
             this.health = 0;
         } else {
             log.info(String.valueOf("daño: "+damageReceived));
@@ -288,12 +288,12 @@ public abstract class Card implements CardCombatSystem, Cloneable{
     }
 
     public void healCard (int healthReceived){
-        if (healthReceived > healthMaxValue){
-            this.health = 100;
+        if (healthReceived >= healthMaxValue){
+            this.health = healthMaxValue;
             return;
         }
-        if ((healthReceived + this.health) > 100) {
-            this.health = 100;
+        if ((healthReceived + this.health) >= healthMaxValue) {
+            this.health = healthMaxValue;
             return;
         }
         if (healthReceived <= 0) {

@@ -58,7 +58,7 @@ public class Room {
         String[] medievalNicknames = {"El Valiente", "El Justiciero", "El Intrépido", "El Audaz", "El Leal", "El Temerario", "El Sabio", "El Noble", "El Fiero", "El Despiadado", "El Astuto", "El Invencible", "El Bravo", "El Sagaz", "El León de Hierro"};
         String[] birthdates = {"05/12/1990", "10/07/1985", "22/09/1998", "16/03/1979", "08/11/2001", "14/06/1995", "29/12/1982", "03/04/1991", "19/08/1977", "27/01/1993", "12/10/1988", "07/02/2000", "25/11/1996", "18/07/1984", "31/05/1999"};
         Card[] cardConstructors = {new HumanCard(), new ElfCard(), new OrcCard()};
-
+        String baseURL = "http://localhost:8080/characters/";
 
         ArrayList<Card> generatedCards = new ArrayList<>();
         for (int i = 0; i < cardQuantity; i++) {
@@ -90,6 +90,17 @@ public class Room {
                                     card.setLevel((byte) (rand.nextInt(Card.levelMaxValue) + 1)); // Genera valores entre 1 y 9
                             case "armor" ->
                                     card.setArmor((byte) (rand.nextInt(Card.armorMaxValue) + 1)); // Genera valores entre 1 y 9
+                            case "imageSrc" ->{
+                                String race = "humans/";
+                                switch (cardRaceNumber){
+                                    case 0 -> race = "humans/";
+                                    case 1 -> race = "orcs/";
+                                    case 2 -> race = "elfs/";
+                                }
+                                int idCharacter = rand.nextInt(4) + 1;
+                                card.setImageSrc(baseURL + race + idCharacter+".png");
+                            }
+
                         }
                     } catch (Error e) {
                         e.printStackTrace();

@@ -213,7 +213,24 @@ public class WebSocketController {
             saveMovements(serializedMessage);
             if (roomMovements.get(roomId).getHostMovement() != null && roomMovements.get(roomId).getGuestMovement() != null) {
                 log.info("Los 2 jugadores eligieron");
-                CombatLogic.processingTurn(roomId);
+                WsResultDto result = CombatLogic.processingTurn(roomId);
+                int finishGame = CombatLogic.GameFinishCheck(roomId);
+                if (finishGame != 0) {
+                    result.type = WsResultDto.Type.FINISH;
+                    switch (finishGame){
+                        case 1:
+                            result.message = "Player: "+ RoomController.roomList.get(roomId).getHostPlayer().getNamePlayer() +" Wins!";
+                            break;
+                        case 2:
+                            result.message = "Player: "+ RoomController.roomList.get(roomId).getGuestPlayer().getNamePlayer() +" Wins!";
+                            break;
+                        case 3:
+                            result.message = "Draw! No One Wins";
+                            break;
+                    }
+
+                }
+                sendMessage(roomId, result);
                 roomMovements.get(roomId).setHostMovement(null);
                 roomMovements.get(roomId).setGuestMovement(null);
             }

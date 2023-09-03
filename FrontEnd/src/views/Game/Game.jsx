@@ -12,6 +12,7 @@ import Sockjs from "sockjs-client/dist/sockjs"
 import Stomp from "stompjs";
 import { GameContext } from "../../GameContext";
 import ResultPopUp from "../components/ResultPopUp/ResultPopUp";
+import FinishScreen from "../components/FinishScreen/FinishScreen";
 
 /*
    
@@ -53,6 +54,9 @@ function Game() {
   const [showDoneBtn, setShowDoneBtn] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const [result, setResult] = useState(null)
+  const [resultFinish, setResultFinish] = useState(null)
+  const [logs, setLogs] = useState([])
+  const [shift, setShift] = useState(false)
 
   
 
@@ -94,9 +98,12 @@ function Game() {
   }
   
   const onConnected = () => {
-    stompClient.subscribe('/room/'+roomId, onMessageReceived);
-    setWsConnection(true)
-    joinUserToRoom();
+    setTimeout(()=>{
+      stompClient.subscribe('/room/'+roomId, onMessageReceived);
+      setWsConnection(true)
+      joinUserToRoom();
+    },500)
+    
   }
 
   const onMessageReceived = (message) => {
@@ -111,6 +118,7 @@ function Game() {
     if (response.type == "MOVE") {
       console.log(messagesWs);
       setMessagesWs(messagesWs => [...messagesWs, response.message]);
+      console.log("Aniadido:  ",messagesWs);
     }
     if (response.type == "ERROR") {
       errorAlertFire()
@@ -120,6 +128,13 @@ function Game() {
       getRoomInfo()
       setShowLoading(false)
       setResult(response)
+      setShift(true)
+      console.log("shift: ",shift);
+    }
+    if (response.type == "FINISH") {
+      getRoomInfo()
+      setShowLoading(false)
+      setResultFinish(response)
     }
   }
 
@@ -217,7 +232,7 @@ function Game() {
     
       (gameStarted && room) 
       ?
-      <GameContext.Provider value={{id, room, moveType, setMoveType, choosingMove, setChoosingMove, targetCard, settargetCard, myCard, setMyCard, result, setResult}}>
+      <GameContext.Provider value={{id, room, moveType, setMoveType, choosingMove, setChoosingMove, targetCard, settargetCard, myCard, setMyCard, result, setResult, resultFinish, setResultFinish}}>
         {showLoading?
           <>
             <div className="absolute flex flex-col items-center justify-center z-50 text-6xl mb-8 w-full h-full backdrop-blur-md"> 
@@ -253,6 +268,12 @@ function Game() {
             :
             null
             }
+            {
+            resultFinish != null? 
+            <FinishScreen/>
+            :
+            null
+            }
             <div className="relative min-h-screen flex flex-col items-center justify-center gap-8 text-2xl">
               {(choosingMove == true)?<div className="bg-black opacity-50 z-40 absolute w-full h-full" onClick={()=>{
                 setMyCard(null)
@@ -262,11 +283,10 @@ function Game() {
                 setShowDoneBtn(false)
                 cleanMove()
                 }}></div>:null}
-            {/*  <img id="" src={room.stage.image} alt="" className="absolute object-cover w-full h-full brightness-50"/> */}
               <Hud position='top' cleanMove={cleanMove}></Hud>
               <div className="absolute z-20 top-5 right-5 flex items-start gap-6">
                 <StageInfo></StageInfo>
-                <Logger messagesWs={messagesWs} />
+                <Logger messagesWs={messagesWs} setShift={setShift} shift={shift} logs={logs} setLogs={setLogs}/>
               </div>
               <Hud position='bottom' cleanMove={cleanMove}></Hud>
             </div>

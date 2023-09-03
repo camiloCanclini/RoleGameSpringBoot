@@ -14,7 +14,8 @@ public class WsResultDto {
         ERROR,
         ROOMREADY,
         MOVE,
-        SHIFT
+        SHIFT,
+        FINISH
     }
     public Type type;
     public String message;

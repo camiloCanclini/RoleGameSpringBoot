@@ -49,7 +49,7 @@ function Hud ({position, cleanMove}){
       }
           <div className={(position == 'bottom'? 'absolute bottom-0 mb-20 pr-8 justify-end' : 'absolute top-0 mt-20 pl-8 justify-start')+' w-full flex  gap-8'}>
             {
-              player.cards.map((item, index) => <Card position={position} key={index} card={item} cardId={cardsId+index}/>)
+              player.cards.map((item, index) => item.health > 0 ? <Card position={position} key={index} card={item} cardId={cardsId+index}/> : null)
             }
           </div>
       </div>
