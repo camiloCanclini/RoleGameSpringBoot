@@ -87,7 +87,7 @@ function Card ({card, cardId}){
       <div className='absolute top-0 right-0 bg-red-700 rounded-full w-12 h-12 z-40 flex items-center justify-center border-2 text-xl overflow-hidden'>{card.health}</div>
       <div className='absolute top-0 left-0 bg-cyan-700 rounded-full w-12 h-12 z-40 flex items-center justify-center border-2 text-3xl overflow-hidden'>{card.level}</div>
       <img src="https://e1.pxfuel.com/desktop-wallpaper/327/350/desktop-wallpaper-medieval-times-medieval-background.jpg" alt="" className='absolute object-cover z-20 w-full h-full'/>
-      <img src={card.imageSrc} alt="" className='z-30 object-cover w-full h-3/5'/>
+      <img src={card.imageSrc} alt="" className='z-30 object-cover w-2/3 h-3/5 mx-auto'/>
       <div className='woodPattern z-40 grow flex p-2 flex-col'>
         <div className='d-flex'>
           <p className='text-sm text-right'>{card.typeCard}</p>
