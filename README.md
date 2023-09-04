@@ -35,3 +35,20 @@ npm run dev -- --port 8000
 ```
 
 *You should do that in case that the port isn´t the 5173 port.*
+
+## Backend Server
+
+Now we gonna install the server, to do that we need to use IntelliJ IDEA IDE, I development the server side using this IDE...
+![IntelliJIDEA](https://dashboard.snapcraft.io/site_media/appmedia/2017/10/logo_zjwX5FR.png)
+
+[https://www.jetbrains.com/idea/download/](https://www.jetbrains.com/idea/download/)
+
+Once you install the IDE, you will be able to download the JDK to run the Java Files through the same IDE. Now, enter to the IDE, if you dont have any JDK install in your Pc the IDE will recommended you one. Install a JDK greatter than JDK 11.
+
+To open the Backend Code go to the `open` option and search the `Backend` folder. Onec you open it, you will need to wait to the IDE indexs and downloads the plugins and others dependencies (you will see and progress bar on the bottom of the screen)
+
+For run the server service use the maven feature, It will appears on the right panel of the screen. Open it and go to the `finalLaboIII` folder, go to `plugin` folder, `spring-boot` folder, and run `spring-boot:run`.
+
+## How to Use
+
+Once you have the Frontend service and the Backend Service runing, you will enter with your explorer (Chrome) in to the url that gave you the Client Frontend. If everything were okay, you can see the 
