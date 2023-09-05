@@ -55,14 +55,19 @@ Once you have the Frontend service and the Backend Service runing, you will ente
 
 ![](readmeImgs/1.jpg)
 
-From there you can see all the Rooms created by other players that are waiting a opponent, If you want to enter to a Room click on that. Once you click there will appear a textBox that wait you to enter your name. Enter your name and click the button to confirm. If everything was okay, you gonna pass to the loading screen and the combat starts.
+From there you can see all the Rooms created by other players that are waiting a opponent, If you want to enter to a Room click on that.
+
 ![](readmeImgs/2.jpg)
+
+Once you click there will appear a textBox that wait you to enter your name. Enter your name and click the button to confirm. If everything was okay, you gonna pass to the loading screen and the combat starts.
+
 ![](readmeImgs/3.jpg)
 ![](readmeImgs/4.jpg)
-If you want to create a Room, where you will wait until other player to connect, in the home page, click on the "Create Room" Button. You will see the next window.
 ![](readmeImgs/5.jpg)
-In these window you need to config the stage where you will fight, and your host name. Write your name and select one of the stage below making click on them. Once you have configurated, touch the button below.
+If you want to create a Room, where you will wait until other player to connect, in the home page, click on the "Create Room" Button. You will see the next window.
 ![](readmeImgs/6.jpg)
+In these window you need to config the stage where you will fight, and your host name. Write your name and select one of the stage below making click on them. Once you have configurated, touch the button below.
+![](readmeImgs/7.jpg)
 Now you need to wait that other Player connect. You can see the ID of the room that you are.
 
 ## How to Play
