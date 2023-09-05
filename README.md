@@ -43,12 +43,50 @@ Now we gonna install the server, to do that we need to use IntelliJ IDEA IDE, I 
 
 [https://www.jetbrains.com/idea/download/](https://www.jetbrains.com/idea/download/)
 
-Once you install the IDE, you will be able to download the JDK to run the Java Files through the same IDE. Now, enter to the IDE, if you dont have any JDK install in your Pc the IDE will recommended you one. Install a JDK greatter than JDK 11.
+Once you install the IDE, you will be able to download the JDK to run the Java Files through the same IDE. Now, enter to the IDE, if you dont have any JDK install in your Pc the IDE will recommended you one. Install a JDK greatter than the JDK 17.
 
 To open the Backend Code go to the `open` option and search the `Backend` folder. Onec you open it, you will need to wait to the IDE indexs and downloads the plugins and others dependencies (you will see and progress bar on the bottom of the screen)
 
-For run the server service use the maven feature, It will appears on the right panel of the screen. Open it and go to the `finalLaboIII` folder, go to `plugin` folder, `spring-boot` folder, and run `spring-boot:run`.
+For run the server service use the maven feature, It will appears on the right panel of the screen. Open it and go to the `rolegame` folder, go to `plugin` folder, `spring-boot` folder, and run `spring-boot:run`.
 
 ## How to Use
 
-Once you have the Frontend service and the Backend Service runing, you will enter with your explorer (Chrome) in to the url that gave you the Client Frontend. If everything were okay, you can see the 
+Once you have the Frontend service and the Backend Service runing, you will enter with your explorer (Chrome) in to the url that gave you the Front Client. If everything were okay, you should see the next window:
+
+![](readmeImgs/1.jpg)
+
+From there you can see all the Rooms created by other players that are waiting a opponent, If you want to enter to a Room click on that. Once you click there will appear a textBox that wait you to enter your name. Enter your name and click the button to confirm. If everything was okay, you gonna pass to the loading screen and the combat starts.
+![](readmeImgs/2.jpg)
+![](readmeImgs/3.jpg)
+![](readmeImgs/4.jpg)
+If you want to create a Room, where you will wait until other player to connect, in the home page, click on the "Create Room" Button. You will see the next window.
+![](readmeImgs/5.jpg)
+In these window you need to config the stage where you will fight, and your host name. Write your name and select one of the stage below making click on them. Once you have configurated, touch the button below.
+![](readmeImgs/6.jpg)
+Now you need to wait that other Player connect. You can see the ID of the room that you are.
+
+## How to Play
+
+### System
+
+How i told you before, the game works like a Magic's Game, each card has attributes, so it can be better in some cases and another isn't. It will depend of the others cards and the combat stage. The background also has attributes that can benefits the cards. The combat system is based on the rock, paper and scissors game. That's mean that all the players should select a Card and a movement to make. below you have the movement priorities
+
+![](readmeImgs/movements.jpg)
+
+**The damage received will depend of the card attributes, the stage attributes and the movement selected**
+
+The Game will finish when one o both Players lost all their cards
+
+### Races 
+We have 3 races of cards:
+
+* The Humans, they are good in the Defends
+   ![](readmeImgs/human.jpg) 
+* The Orcs, they are good in the Hits
+   ![](readmeImgs/orc.jpg) 
+* And the Elfs, they are good Casting Spells
+   ![](readmeImgs/elf.jpg) 
+
+### Card Info
+
+![](readmeImgs/cardInfo.jpg) 
