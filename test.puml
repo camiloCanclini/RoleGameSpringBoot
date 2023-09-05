@@ -1,0 +1,146 @@
+@startuml
+class com.canclini.rolegame.Game.Entities.Cards.HumanCard {
++ {static} int humanAgeMaxValue
++ void setAge(int)
++ int hit(Card)
++ int castSpell(Card)
++ int defend(Byte,MoveType)
++ void levelUp(Byte)
+}
+class com.canclini.rolegame.Game.Entities.Stage {
+- String stageName
+- String image
+- int heat
+- int wind
+- int humidity
+- int magicBoost
+- void setStageName(String)
+- void setHeat(int)
+- void setWind(int)
+- void setHumidity(int)
+- void setMagicBoost(int)
+}
+interface com.canclini.rolegame.Game.Entities.Cards.CardCombatSystem {
++ int hit(Card)
++ int castSpell(Card)
++ int defend(Byte,Card.MoveType)
++ void levelUp(Byte)
+}
+class com.canclini.rolegame.Game.Entities.Room {
+- Player hostPlayer
+- Player guestPlayer
+- Stage stage
+- int movementsCounter
+- int maxMoves
+- boolean turn
+- boolean fullRoom
++ String toString()
++ void setFullRoom(boolean)
++ {static} ArrayList<Card> generateRandomCards(int)
+}
+abstract class com.canclini.rolegame.Game.Entities.Cards.Card {
+- CardType typeCard
+- String name
+- String nickname
+- String birthdate
+# Integer age
+- Byte health
+- Byte speed
+- Byte dexterity
+- Byte strength
+- Byte magic
+- Byte level
+- Byte armor
++ {static} Integer ageMaxValue
++ {static} Byte healthMaxValue
++ {static} Byte speedMaxValue
++ {static} Byte dexterityMaxValue
++ {static} Byte strengthMaxValue
++ {static} Byte magicMaxValue
++ {static} Byte levelMaxValue
++ {static} Byte armorMaxValue
+- String imageSrc
+- Integer shootPower
+- Integer magicPower
+- Double shootEffectiveness
+- Integer spellValue
+- Integer hitValue
+- Integer defensePower
++ Card clone()
++ Integer getShootPower()
++ void setShootPower()
++ Integer getMagicPower()
++ void setMagicPower()
++ Double getShootEffectiveness()
++ void setShootEffectiveness()
++ Integer getHitValue()
++ void setHitValue()
++ Integer getSpellValue()
++ void setSpellValue()
++ Integer getDefensePower()
++ void setDefensePower()
++ CardType getTypeCard()
++ void setTypeCard(int)
++ String getName()
++ void setName(String)
++ String getNickname()
++ void setNickname(String)
++ String getBirthdate()
++ void setBirthdate(String)
++ int getAge()
++ void setAge(int)
++ Byte getHealth()
++ void setHealth(byte)
++ Byte getSpeed()
++ void setSpeed(byte)
++ Byte getDexterity()
++ void setDexterity(byte)
++ Byte getStrength()
++ void setStrength(byte)
++ Byte getMagic()
++ void setMagic(Byte)
++ Byte getLevel()
++ void setLevel(byte)
++ Byte getArmor()
++ void setArmor(byte)
++ String getImageSrc()
++ void setImageSrc(String)
++ void getDamage(byte)
++ void healCard(int)
++ void setCombatStats()
++ String toString()
+}
+enum com.canclini.rolegame.Game.Entities.Cards.CardType {
++  HUMAN
++  ORC
++  ELF
+}
+enum com.canclini.rolegame.Game.Entities.Cards.MoveType {
++  HIT
++  SPELL
++  DEFEND
+}
+class com.canclini.rolegame.Game.Entities.Player {
+- String namePlayer
+- ArrayList<Card> cards
+}
+class com.canclini.rolegame.Game.Entities.Cards.OrcCard {
++ int hit(Card)
++ int castSpell(Card)
++ int defend(Byte,MoveType)
++ void levelUp(Byte)
+}
+class com.canclini.rolegame.Game.Entities.Cards.ElfCard {
++ int hit(Card)
++ int castSpell(Card)
++ int defend(Byte,MoveType)
++ void levelUp(Byte)
+}
+
+
+com.canclini.rolegame.Game.Entities.Cards.Card <|-- com.canclini.rolegame.Game.Entities.Cards.HumanCard
+com.canclini.rolegame.Game.Entities.Cards.CardCombatSystem <|.. com.canclini.rolegame.Game.Entities.Cards.Card
+com.canclini.rolegame.Game.Entities.Cards.Cloneable <|.. com.canclini.rolegame.Game.Entities.Cards.Card
+com.canclini.rolegame.Game.Entities.Cards.Card <|-- com.canclini.rolegame.Game.Entities.Cards.OrcCard
+com.canclini.rolegame.Game.Entities.Cards.Card <|-- com.canclini.rolegame.Game.Entities.Cards.ElfCard
+@enduml
