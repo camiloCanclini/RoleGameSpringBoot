@@ -61,13 +61,13 @@ From there you can see all the Rooms created by other players that are waiting a
 
 Once you click there will appear a textBox that wait you to enter your name. Enter your name and click the button to confirm. If everything was okay, you gonna pass to the loading screen and the combat starts.
 
-![](readmeImgs/3.jpg)
-![](readmeImgs/4.jpg)
-![](readmeImgs/5.jpg)
+![](./readmeImgs/3.jpg)
+![](./readmeImgs/4.jpg)
+![](./readmeImgs/5.jpg)
 If you want to create a Room, where you will wait until other player to connect, in the home page, click on the "Create Room" Button. You will see the next window.
-![](readmeImgs/6.jpg)
+![](./readmeImgs/6.jpg)
 In these window you need to config the stage where you will fight, and your host name. Write your name and select one of the stage below making click on them. Once you have configurated, touch the button below.
-![](readmeImgs/7.jpg)
+![](./readmeImgs/7.jpg)
 Now you need to wait that other Player connect. You can see the ID of the room that you are.
 
 ## How to Play
@@ -76,7 +76,7 @@ Now you need to wait that other Player connect. You can see the ID of the room t
 
 How i told you before, the game works like a Magic's Game, each card has attributes, so it can be better in some cases and another isn't. It will depend of the others cards and the combat stage. The background also has attributes that can benefits the cards. The combat system is based on the rock, paper and scissors game. That's mean that all the players should select a Card and a movement to make. below you have the movement priorities
 
-![](readmeImgs/movements.jpg)
+![](./readmeImgs/movements.jpg)
 
 **The damage received will depend of the card attributes, the stage attributes and the movement selected**
 
@@ -86,12 +86,12 @@ The Game will finish when one o both Players lost all their cards
 We have 3 races of cards:
 
 * The Humans, they are good in the Defends
-   ![](readmeImgs/human.jpg) 
+   ![](./readmeImgs/human.jpg) 
 * The Orcs, they are good in the Hits
-   ![](readmeImgs/orc.jpg) 
+   ![](./readmeImgs/orc.jpg) 
 * And the Elfs, they are good Casting Spells
-   ![](readmeImgs/elf.jpg) 
+   ![](./readmeImgs/elf.jpg) 
 
 ### Card Info
 
-![](readmeImgs/cardInfo.jpg) 
+![](./readmeImgs/cardInfo.jpg) 
